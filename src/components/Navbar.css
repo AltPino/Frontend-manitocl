@@ -84,3 +84,57 @@
   max-width: 100%;
   overflow-x: hidden !important;
 }
+
+/* Texto del usuario */
+.navbar-user {
+  margin-right: 15px;
+  font-weight: bold;
+  color: #1b4332;
+}
+
+/* Botón de cerrar sesión */
+.btn-logout {
+  background: #dc2626;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-logout:hover {
+  background: #b91c1c;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+  background: #fde4d0;
+  border-bottom: 1px solid #e8c7af;
+}
+
+/* Enlaces izquierda */
+.navbar-left a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.navbar-left .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-right: 40px;
+  color: #111;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+

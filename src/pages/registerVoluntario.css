@@ -1,0 +1,102 @@
+/* ==========================
+   CONTENEDOR PRINCIPAL
+========================== */
+* {
+  box-sizing: border-box;
+}
+
+
+.registro-wrapper {
+  max-width: 520px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  font-family: "Inter", sans-serif;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================
+   TITULO
+========================== */
+.registro-wrapper h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #1f2937;
+}
+
+/* ==========================
+   INPUTS
+========================== */
+.registro-wrapper input,
+.registro-wrapper select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  font-size: 15px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  outline: none;
+  transition: 0.2s ease;
+  box-sizing: border-box;
+}
+
+.registro-wrapper input:focus,
+.registro-wrapper select:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* ==========================
+   BOTÓN
+========================== */
+.registro-wrapper button {
+  width: 100%;
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s ease;
+}
+
+.registro-wrapper button:hover {
+  background: #1d4ed8;
+}
+
+/* ==========================
+   MENSAJES
+========================== */
+.registro-wrapper .error {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.registro-wrapper .exito {
+  background: #dcfce7;
+  color: #166534;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
