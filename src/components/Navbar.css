@@ -1,0 +1,86 @@
+/* ======== RESET DEL NAVBAR ======== */
+.navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background: #ffe1cc;
+  z-index: 100;
+  border-bottom: 1px solid #e0b8a1;
+  padding: 10px 0;
+  overflow-x: hidden;   /* Evita scroll horizontal */
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+}
+
+/* LOGO */
+.logo {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+/* LINKS */
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #444;
+}
+
+.nav-links a:hover {
+  color: #000;
+}
+
+/* BOTONES */
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-login,
+.btn-register {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 2px solid #2e7d32;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.btn-login {
+  background: transparent;
+  color: #2e7d32;
+}
+
+.btn-register {
+  background: #2e7d32;
+  color: white;
+}
+
+.btn-register:hover {
+  background: #1f5c23;
+}
+
+.btn-login:hover {
+  background: #d4f8d4;
+}
+
+/* ======== PREVENIR SCROLL HORIZONTAL ======== */
+* {
+  max-width: 100%;
+  overflow-x: hidden !important;
+}

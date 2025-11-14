@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axiosConfig";
+import "./Home.css";
 
 const Home = () => {
   const [convocatorias, setConvocatorias] = useState([]);
@@ -8,135 +9,155 @@ const Home = () => {
   const [comunas, setComunas] = useState([]);
 
   const [filtroInteres, setFiltroInteres] = useState("");
-  const [filtroRegion, setFiltroRegion] = useState("");   // nombre de la región
-  const [filtroComuna, setFiltroComuna] = useState("");   // nombre de la comuna
-  const [regionId, setRegionId] = useState("");           // id para cargar comunas
+  const [filtroRegion, setFiltroRegion] = useState("");
+  const [filtroComuna, setFiltroComuna] = useState("");
+  const [regionId, setRegionId] = useState("");
 
-  // 1. Intereses
+  // === 1. Intereses ===
   const cargarIntereses = async () => {
     const res = await api.get("/etiquetas/intereses");
     setIntereses(res.data);
   };
 
-  // 2. Regiones
+  // === 2. Regiones ===
   const cargarRegiones = async () => {
-    const res = await api.get("/geo/regiones");
+    const res = await api.get("/regiones");
     setRegiones(res.data);
   };
 
-  // 3. Comunas por región (usa id_region)
+  // === 3. Comunas ===
   const cargarComunas = async (id_region) => {
-    if (!id_region) {
-      setComunas([]);
-      return;
-    }
-    const res = await api.get(`/geo/comunas/${id_region}`);
+    if (!id_region) return setComunas([]);
+    const res = await api.get(`/comunas/${id_region}`);
     setComunas(res.data);
   };
 
-  // 4. Convocatorias con filtros
-  const cargarConvocatorias = async () => {
-    const res = await api.get("/convocatorias", {
-      params: {
-        interes: filtroInteres || undefined,
-        region: filtroRegion || undefined,
-        comuna: filtroComuna || undefined,
-      },
-    });
-    setConvocatorias(res.data);
-  };
+  // === 4. Convocatorias ===
+  useEffect(() => {
+    const cargar = async () => {
+      const res = await api.get("/convocatorias", {
+        params: {
+          interes: filtroInteres || undefined,
+          region: filtroRegion || undefined,
+          comuna: filtroComuna || undefined,
+        },
+      });
+      setConvocatorias(res.data);
+    };
 
-  // Cargar inicial
+    cargar();
+  }, [filtroInteres, filtroRegion, filtroComuna]);
+
   useEffect(() => {
     cargarIntereses();
     cargarRegiones();
-    cargarConvocatorias();
   }, []);
 
-  // Al cambiar regionId -> cargar comunas
   useEffect(() => {
     cargarComunas(regionId);
   }, [regionId]);
 
-  // Al cambiar filtros -> recargar convocatorias
-  useEffect(() => {
-    cargarConvocatorias();
-  }, [filtroInteres, filtroRegion, filtroComuna]);
-
-  // ============= RENDER =============
   return (
-    <div className="home-container">
-      <h1>Encontremos tu forma de ayudar</h1>
+    <div className="home-wrapper">
 
-      <div className="filtros-container">
+      {/* ============= HERO SECTION ============= */}
+      <section className="hero">
+        <div className="hero-content">
+          <h1>Conecta. Ayuda. Transforma.</h1>
+          <p>Encuentra oportunidades de voluntariado cerca de ti.</p>
+          <a href="/register" className="cta-btn">Únete como voluntario</a>
+        </div>
+      </section>
 
-        {/* Interés */}
-        <select
-          value={filtroInteres}
-          onChange={(e) => setFiltroInteres(e.target.value)}
-        >
-          <option value="">Interés</option>
-          {intereses.map((i) => (
-            <option key={i.id_etiqueta} value={i.nombre}>
-              {i.nombre}
-            </option>
+      {/* ============= FILTROS ============= */}
+      <section className="filtros">
+        <h2>Filtrar convocatorias</h2>
+
+        <div className="filtro-grid">
+
+          {/* Intereses */}
+          <select
+            value={filtroInteres}
+            onChange={(e) => setFiltroInteres(e.target.value)}
+          >
+            <option value="">Interés</option>
+            {intereses.map((i) => (
+              <option key={i.id_etiqueta} value={i.nombre}>
+                {i.nombre}
+              </option>
+            ))}
+          </select>
+
+          {/* Región */}
+          <select
+            value={regionId}
+            onChange={(e) => {
+              const id = e.target.value;
+              setRegionId(id);
+              const regionObj = regiones.find(r => String(r.id_region) === String(id));
+              setFiltroRegion(regionObj ? regionObj.nombre : "");
+              setFiltroComuna("");
+            }}
+          >
+            <option value="">Región</option>
+            {regiones.map((r) => (
+              <option key={r.id_region} value={r.id_region}>
+                {r.nombre}
+              </option>
+            ))}
+          </select>
+
+          {/* Comuna */}
+          <select
+            value={filtroComuna}
+            onChange={(e) => setFiltroComuna(e.target.value)}
+            disabled={!regionId}
+          >
+            <option value="">Comuna</option>
+            {comunas.map((c) => (
+              <option key={c.id_comuna} value={c.nombre}>
+                {c.nombre}
+              </option>
+            ))}
+          </select>
+
+        </div>
+      </section>
+
+      {/* ============= LISTA DE CONVOCATORIAS ============= */}
+      <section className="convocatorias-section">
+        <h2>Convocatorias disponibles</h2>
+
+        <div className="convocatorias-grid">
+
+          {convocatorias.length === 0 && (
+            <p className="no-results">No hay convocatorias disponibles.</p>
+          )}
+
+          {convocatorias.map((c) => (
+            <div className="card" key={c.id_convocatoria}>
+              <img
+                src={c.imagen || "https://via.placeholder.com/400x200?text=Voluntariado"}
+                alt="Imagen convocatoria"
+              />
+              <div className="card-body">
+                <h3>{c.titulo}</h3>
+                <p className="descripcion">{c.descripcion}</p>
+
+                <p><strong>Región:</strong> {c.region}</p>
+                <p><strong>Comuna:</strong> {c.comuna}</p>
+                <p><strong>Organización:</strong> {c.nombre_organizacion}</p>
+
+                <a href={`/convocatoria/${c.id_convocatoria}`} className="card-btn">
+                  Ver detalles
+                </a>
+              </div>
+            </div>
           ))}
-        </select>
 
-        {/* Región (usa id para comunas, pero también seteamos el nombre para el filtro) */}
-        <select
-          value={regionId}
-          onChange={(e) => {
-            const id = e.target.value;
-            setRegionId(id);
+        </div>
+      </section>
 
-            const regionObj = regiones.find(
-              (r) => String(r.id_region) === String(id)
-            );
-            setFiltroRegion(regionObj ? regionObj.nombre : "");
-            setFiltroComuna(""); // limpiar comuna cuando cambie región
-          }}
-        >
-          <option value="">Región</option>
-          {regiones.map((r) => (
-            <option key={r.id_region} value={r.id_region}>
-              {r.nombre}
-            </option>
-          ))}
-        </select>
-
-        {/* Comuna (solo nombres) */}
-        <select
-          value={filtroComuna}
-          onChange={(e) => setFiltroComuna(e.target.value)}
-          disabled={!regionId}
-        >
-          <option value="">Comuna</option>
-          {comunas.map((c) => (
-            <option key={c.id_comuna} value={c.nombre}>
-              {c.nombre}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* LISTA DE CONVOCATORIAS */}
-      <div className="convocatorias-list">
-        {convocatorias.length === 0 && <p>No hay convocatorias por ahora.</p>}
-
-        {convocatorias.map((c) => (
-          <div key={c.id_convocatoria} className="card">
-            <h3>{c.titulo}</h3>
-            <p>{c.descripcion}</p>
-            <p>
-              <strong>Ubicación:</strong> {c.region}, {c.comuna}
-            </p>
-            <p>
-              <strong>Organización:</strong> {c.nombre_organizacion}
-            </p>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
