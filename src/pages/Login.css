@@ -1,64 +1,112 @@
+/* =======================================================
+   LOGIN — CSS MODERNO Y TOTALMENTE ENCAPSULADO
+   No afecta ningún otro componente del proyecto
+=========================================================== */
+
 .login-wrapper {
   display: flex;
   justify-content: center;
-  padding: 80px 20px;
+  padding: 60px 20px;
+  font-family: "Inter", sans-serif;
 }
 
 .login-container {
   width: 100%;
-  max-width: 380px;
-  background: white;
-  padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  text-align: center;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* SOLO afecta este login */
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Título */
 .login-container h2 {
-  color: #1d4ed8;
-  margin-bottom: 20px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #0f172a;
 }
 
+/* Inputs */
 .login-container input {
   width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #f9fafb;
-  font-size: 1rem;
+  padding: 13px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s ease;
 }
 
-.login-container .btn-login {
+.login-container input:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Botón login */
+.login-container button {
   width: 100%;
-  padding: 12px;
-  margin-top: 25px;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
   background: #2563eb;
   color: white;
-  border-radius: 8px;
-  border: none;
+  font-size: 17px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.25s ease;
 }
 
-.login-container .btn-login:hover {
+.login-container button:hover {
   background: #1d4ed8;
 }
 
-.login-error {
-  background: #ffe6e6;
-  color: #c92a2a;
+/* Mensajes */
+.login-container .error {
+  background: #fee2e2;
+  color: #b91c1c;
   padding: 10px;
   border-radius: 8px;
-  margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-.registro-txt {
-  margin-top: 12px;
+.login-container .exito {
+  background: #dcfce7;
+  color: #166534;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-.registro-txt a {
+/* Link registro */
+.login-container .register-link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.login-container .register-link a {
   color: #2563eb;
-  font-weight: bold;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-container .register-link a:hover {
+  text-decoration: underline;
 }

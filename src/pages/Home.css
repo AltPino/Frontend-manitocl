@@ -1,126 +1,164 @@
-/* ========= CONTENEDOR GENERAL ========= */
+/* =========================================
+   HOME — ESTILO PROFESIONAL Y MODERNO
+========================================= */
+
 .home-wrapper {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto 40px auto;
-  padding: 0 16px;
-  box-sizing: border-box;
+  margin: 0 auto 50px auto;
+  padding: 0 20px;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* ========= HERO SECTION ========= */
+/* Animación global suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   HERO — Nuevo diseño elegante
+========================================= */
+
 .hero {
   width: 100%;
-  height: 340px;
-  background: url("https://images.unsplash.com/photo-1521737711867-e3b97375f902")
-    center/cover no-repeat;
+  height: 360px;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.45)
+    ),
+    url("https://images.unsplash.com/photo-1521737711867-e3b97375f902")
+      center/cover no-repeat;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-  padding: 40px 20px;
   border-radius: 18px;
-  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
 }
 
 .hero-content {
-  text-align: center;
-  max-width: 600px;
+  max-width: 650px;
 }
 
 .hero h1 {
-  font-size: 2.6rem;
-  font-weight: 700;
-  margin: 0;
+  font-size: 2.8rem;
+  font-weight: 800;
 }
 
 .hero p {
-  margin-top: 10px;
-  font-size: 1.2rem;
+  margin-top: 12px;
+  font-size: 1.25rem;
+  opacity: 0.95;
 }
 
+/* CTA BUTTON */
 .cta-btn {
   display: inline-block;
-  margin-top: 20px;
-  background: #ff7f50;
+  margin-top: 28px;
+  background: #0f766e;
   color: white;
-  padding: 12px 25px;
-  border-radius: 999px;
-  font-size: 1rem;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
   text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out, transform 0.1s ease-in-out;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
 }
 
 .cta-btn:hover {
-  background: #ff5722;
-  transform: translateY(-1px);
+  background: #0d5e56;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.22);
 }
 
-/* ========= FILTROS ========= */
+/* =========================================
+   FILTROS — Minimalista y profesional
+========================================= */
+
 .filtros {
-  margin: 40px auto 20px auto;
+  margin: 50px auto 20px auto;
   text-align: center;
 }
 
 .filtros h2 {
-  margin: 0 0 10px 0;
-  font-size: 1.6rem;
-  color: #333;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 15px;
 }
 
 .filtro-grid {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 15px;
+  gap: 18px;
   flex-wrap: wrap;
 }
 
 .filtro-grid select {
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  min-width: 160px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  min-width: 180px;
   font-size: 0.95rem;
-  background-color: #fff;
-  transition: border-color 0.2s;
+  background: white;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.filtro-grid select:hover {
+  border-color: #0f766e;
 }
 
 .filtro-grid select:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.25);
 }
 
-/* ========= CONVOCATORIAS ========= */
+/* =========================================
+   CONVOCATORIAS GRID
+========================================= */
+
 .convocatorias-section {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 35px;
 }
 
 .convocatorias-section h2 {
-  font-size: 1.6rem;
-  margin-bottom: 10px;
-  color: #333;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
 }
 
-/* GRID de tarjetas */
+/* Tarjetas en grilla */
 .convocatorias-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 20px;
+  gap: 26px;
 }
 
-/* Tarjeta */
+/* =========================================
+   TARJETA DE CONVOCATORIA
+========================================= */
+
 .card {
-  background: rgb(255, 230, 226);
-  border-radius: 12px;
+  background: white;
+  border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
+  transition: .25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 
 .card img {
@@ -130,60 +168,58 @@
 }
 
 .card-body {
-  padding: 14px 16px 16px 16px;
+  padding: 16px 18px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .card h3 {
-  margin: 0 0 6px 0;
+  margin: 0 0 5px 0;
   font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
 }
 
 .descripcion {
   font-size: 0.95rem;
-  color: #555;
+  color: #444;
   margin-bottom: 4px;
 }
 
 .card p {
   margin: 0;
   font-size: 0.9rem;
-  color: #444;
+  color: #555;
 }
 
-/* Botón tarjeta */
+/* Botón de la tarjeta */
 .card-btn {
   margin-top: 10px;
-  padding: 9px;
-  background: #ff7b00;
+  padding: 10px;
+  background: #0f766e;
   color: white;
   text-align: center;
-  border-radius: 999px;
+  border-radius: 10px;
   text-decoration: none;
   font-size: 0.95rem;
-  transition: background 0.2s ease-in-out, transform 0.1s ease-in-out;
+  font-weight: 600;
+  transition: .25s;
 }
 
 .card-btn:hover {
-  background: #ff5100;
-  transform: translateY(-1px);
+  background: #0d5e56;
+  transform: translateY(-2px);
 }
 
-/* Mensaje sin resultados */
-.no-results {
-  text-align: center;
-  font-size: 1rem;
-  color: #777;
-  grid-column: 1 / -1;
-}
+/* =========================================
+   RESPONSIVE
+========================================= */
 
-/* ========= RESPONSIVE ========= */
 @media (max-width: 768px) {
   .hero {
-    height: 260px;
-    border-radius: 0;
+    height: 280px;
+    border-radius: 10px;
   }
 
   .hero h1 {
@@ -194,7 +230,7 @@
     font-size: 1rem;
   }
 
-  .home-wrapper {
-    padding: 0 10px 30px 10px;
+  .filtros h2 {
+    font-size: 1.4rem;
   }
 }

@@ -1,70 +1,108 @@
-.org-wrapper {
+/* =======================================================
+   REGISTRO ORGANIZACIÓN — CSS TOTALMENTE ENCAPSULADO
+   SIN ESTILOS GLOBALES
+=========================================================== */
+
+/* Wrapper centrado */
+.org-register-wrapper {
   display: flex;
   justify-content: center;
-  padding: 40px 20px;
+  width: 100%;
+  padding: 50px 20px;
+  font-family: "Inter", sans-serif;
 }
 
-.org-container {
+/* Contenedor principal */
+.org-register-container {
   width: 100%;
   max-width: 550px;
-  background: white;
+  background: #ffffff;
   padding: 35px;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-h2 {
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Títulos */
+.org-register-container h2 {
   text-align: center;
-  margin-bottom: 20px;
+  font-size: 28px;
   font-weight: 700;
-  color: #1d4ed8;
+  margin-bottom: 15px;
+  color: #0f172a;
 }
 
-h3 {
-  margin-top: 25px;
-  color: #374151;
+.org-register-container h3 {
+  margin-top: 22px;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #334155;
 }
 
-input, textarea {
+/* Inputs */
+.org-register-container input,
+.org-register-container textarea {
   width: 100%;
-  padding: 12px;
-  margin-top: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #f9fafb;
-  font-size: 1rem;
+  padding: 13px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  margin-top: 8px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  outline: none;
+  transition: .2s;
 }
 
-textarea {
-  min-height: 80px;
+.org-register-container input:focus,
+.org-register-container textarea:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Textarea */
+.org-register-container textarea {
+  min-height: 90px;
   resize: vertical;
 }
 
-.btn-registrar {
+/* Botón registrar */
+.org-register-container .btn-registrar {
   width: 100%;
-  margin-top: 25px;
-  padding: 12px;
-  background: #2563eb;
+  padding: 14px;
+  background: #0f766e;
   color: white;
-  border-radius: 8px;
-  font-size: 1.1rem;
+  border-radius: 10px;
   border: none;
+  font-size: 17px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
-.btn-registrar:hover {
-  background: #1e3fa8;
+.org-register-container .btn-registrar:hover {
+  background: #0d5e56;
 }
 
-.error {
-  color: red;
+/* Mensajes */
+.org-register-container .error {
+  color: #dc2626;
   text-align: center;
+  font-size: 14px;
   margin-bottom: 10px;
 }
 
-.exito {
-  color: green;
+.org-register-container .exito {
+  color: #15803d;
   text-align: center;
+  font-size: 14px;
   margin-bottom: 10px;
 }

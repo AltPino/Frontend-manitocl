@@ -1,0 +1,35 @@
+/* =========================================
+   🎨 PALETA DE COLORES - ESTILO B
+========================================= */
+
+:root {
+  --color-primary: #0f6c47;          /* Verde principal */
+  --color-primary-light: #2e8b57;
+  --color-secondary: #ff7b00;        /* Naranjo CTA */
+  --color-secondary-light: #ffa558;
+  --color-bg: #f5f7fa;               /* Fondo gris muy claro */
+  --color-bg-soft: #ffffff;          /* Tarjetas */
+  --color-text: #1d1d1d;
+  --color-text-soft: #555;
+  --color-danger: #c62828;
+  --color-danger-dark: #a92121;
+  --color-border: #e4e4e4;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-soft: 0 3px 10px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 5px 18px rgba(0, 0, 0, 0.1);
+
+  --transition: 0.25s ease;
+}
+
+
+/* ESTILOS BASE */
+body {
+  margin: 0;
+  background: var(--crema-claro);
+  font-family: var(--font);
+  color: var(--gris-texto);
+}

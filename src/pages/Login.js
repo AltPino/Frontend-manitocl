@@ -29,7 +29,6 @@ export default function Login() {
       if (tipo === "voluntario") navigate("/voluntario");
       else if (tipo === "organizacion") navigate("/organizacion");
       else if (tipo === "admin") navigate("/admin");
-
     } catch (err) {
       setError(err.response?.data?.message || "Error al iniciar sesión");
     }
@@ -40,11 +39,8 @@ export default function Login() {
   return (
     <div className="login-wrapper">
       <div className="login-container">
-
         <h2>Iniciar Sesión</h2>
-
         {error && <p className="login-error">{error}</p>}
-
         <form onSubmit={handleSubmit}>
           <input
             type="email"
@@ -66,7 +62,6 @@ export default function Login() {
             {cargando ? "Ingresando..." : "Ingresar"}
           </button>
         </form>
-
         <p className="registro-txt">
           ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
         </p>

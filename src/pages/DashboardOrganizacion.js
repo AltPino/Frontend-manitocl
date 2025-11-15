@@ -1,70 +1,78 @@
-import React, { useEffect, useState, useContext } from "react";
-import api from "../api/axiosConfig";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import api from "../api/axiosConfig";
+import "./DashboardOrganizacion.css";
 
 export default function DashboardOrganizacion() {
-  const { usuario, logout } = useContext(AuthContext);
+  const { usuario } = useContext(AuthContext);
   const [convocatorias, setConvocatorias] = useState([]);
-  const [cargando, setCargando] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!usuario) return;
-    // Cargar convocatorias creadas por esta organización
-    api
-      .get(`/convocatorias?organizacion=${usuario.id}`)
-      .then((res) => setConvocatorias(res.data))
-      .catch(() => console.error("Error al cargar convocatorias"))
-      .finally(() => setCargando(false));
-  }, [usuario]);
+    cargarConvocatorias();
+  }, []);
 
-  const crearConvocatoria = async () => {
-    const titulo = prompt("Título de la nueva convocatoria:");
-    const descripcion = prompt("Descripción breve:");
-    if (!titulo || !descripcion) return;
-
+  const cargarConvocatorias = async () => {
     try {
-      await api.post("/convocatorias", {
-        id_organizacion: usuario.id,
-        titulo,
-        descripcion,
-        ubicacion: "Iquique"
-      });
-      alert("Convocatoria creada correctamente.");
-      window.location.reload();
-    } catch (err) {
-      alert(err.response?.data?.message || "Error al crear convocatoria.");
+      const res = await api.get("/organizacion/convocatorias");
+      setConvocatorias(res.data);
+    } catch (error) {
+      console.error("Error al cargar convocatorias:", error);
     }
   };
 
-  if (!usuario) return <p style={{ textAlign: "center" }}>Cargando...</p>;
+  const eliminarConvocatoria = async (id) => {
+    if (!window.confirm("¿Seguro que deseas eliminar esta convocatoria?"))
+      return;
+
+    try {
+      await api.delete(`/organizacion/convocatorias/${id}`);
+      cargarConvocatorias();
+    } catch (error) {
+      console.error("Error al eliminar convocatoria:", error);
+    }
+  };
 
   return (
-    <div style={{ maxWidth: "900px", margin: "auto", marginTop: "40px" }}>
-      <h2>Bienvenido, {usuario.nombre}</h2>
-      <p>Tipo de cuenta: <b>{usuario.tipo}</b></p>
-      <button onClick={() => { logout(); navigate("/login"); }}>Cerrar sesión</button>
+    <div className="org-wrapper">
+      {/* ======= HEADER ======= */}
+      <div className="org-header">
+        <div className="org-avatar">🏢</div>
+        <h1 className="org-name">Bienvenido, {usuario?.nombre}</h1>
+        <span className="org-badge">Cuenta: Organización</span>
+      </div>
 
-      <hr />
-      <h3>Tus convocatorias</h3>
-      <button onClick={crearConvocatoria}>+ Nueva Convocatoria</button>
+      {/* ======= SECCIÓN ======= */}
+      <div className="org-section">
+        <div className="section-header">
+          <h2>Tus Convocatorias</h2>
+          <button className="btn-primary-org">+ Nueva Convocatoria</button>
+        </div>
 
-      {cargando ? (
-        <p>Cargando convocatorias...</p>
-      ) : convocatorias.length === 0 ? (
-        <p>No has creado ninguna convocatoria aún.</p>
-      ) : (
-        <ul>
-          {convocatorias.map((c) => (
-            <li key={c.id_convocatoria} style={{ marginBottom: "15px" }}>
-              <h4>{c.titulo}</h4>
-              <p>{c.descripcion}</p>
-              <p><b>Estado:</b> {c.estado}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+        {convocatorias.length === 0 ? (
+          <p className="no-convocatorias">
+            No has creado ninguna convocatoria aún.
+          </p>
+        ) : (
+          <div className="conv-grid">
+            {convocatorias.map((c) => (
+              <div className="conv-card" key={c.id_convocatoria}>
+                <h3>{c.titulo}</h3>
+                <p className="conv-desc">{c.descripcion}</p>
+
+                <div className="card-actions">
+                  <button className="btn-edit">Editar</button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => eliminarConvocatoria(c.id_convocatoria)}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

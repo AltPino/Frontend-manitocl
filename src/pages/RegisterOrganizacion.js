@@ -41,25 +41,26 @@ export default function RegisterOrganizacion() {
     try {
       await api.post("/auth/register", form);
 
-      setMensaje("¡Organización registrada correctamente! Espera validación del admin.");
+      setMensaje(
+        "¡Organización registrada correctamente! Espera validación del admin."
+      );
       setTimeout(() => navigate("/login"), 1500);
-
     } catch (err) {
-      setError(err.response?.data?.message || "Error al registrar organización");
+      setError(
+        err.response?.data?.message || "Error al registrar organización"
+      );
     }
   };
 
   return (
-    <div className="org-wrapper">
-
-      <div className="org-container">
+    <div className="org-register-wrapper">
+      <div className="org-register-container">
         <h2>Registro de Organización</h2>
 
         {error && <p className="error">{error}</p>}
         {mensaje && <p className="exito">{mensaje}</p>}
 
         <form onSubmit={handleSubmit}>
-
           <h3>Datos del Responsable</h3>
           <input
             type="text"
@@ -159,10 +160,11 @@ export default function RegisterOrganizacion() {
             onChange={handleChange}
           />
 
-          <button type="submit" className="btn-registrar">Registrar organización</button>
+          <button type="submit" className="btn-registrar">
+            Registrar organización
+          </button>
         </form>
       </div>
-
     </div>
   );
 }

@@ -1,86 +1,168 @@
 .admin-wrapper {
   display: flex;
-  height: 100vh;
-  background: #f5f6fa;
-  overflow: hidden;
+  min-height: 100vh;
+  background: #f3f4f6;
+  font-family: system-ui, sans-serif;
 }
 
-/* SIDEBAR */
+/* ========== SIDEBAR ========== */
 .sidebar {
-  width: 240px;
-  background: #1f2937;
+  width: 260px;
+  background: #0f172a;
   color: white;
-  padding: 25px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .sidebar h2 {
-  text-align: center;
-  margin-bottom: 20px;
   font-size: 1.4rem;
+  margin: 0 0 8px 0;
+}
+
+.sidebar-user {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 12px;
 }
 
 .sidebar button {
-  background: transparent;
-  border: 1px solid #4b5563;
+  border: none;
+  background: #1e293b;
+  color: #e2e8f0;
   padding: 12px;
-  border-radius: 8px;
-  color: white;
+  border-radius: 12px;
   cursor: pointer;
-  transition: 0.2s;
+  font-size: 1rem;
   text-align: left;
+  transition: 0.2s;
 }
 
-.sidebar button:hover,
-.sidebar .active {
-  background: #4b5563;
+.sidebar button:hover {
+  background: #334155;
+}
+
+.sidebar button.active {
+  background: #2563eb;
+  color: white;
 }
 
 .logout-btn {
   margin-top: auto;
   background: #dc2626 !important;
-  border-color: #b91c1c !important;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
 }
 
-.logout-btn:hover {
-  background: #b91c1c !important;
-}
-
-/* CONTENIDO */
+/* ============== CONTENIDO PRINCIPAL ============== */
 .contenido {
-  padding: 30px;
-  width: 100%;
+  flex: 1;
+  padding: 40px;
   overflow-y: auto;
+}
+
+.blue-title {
+  color: #2563eb;
+  margin-bottom: 12px;
+}
+
+/* ============== GRID Y CARDS ============== */
+.admin-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
 }
 
 .admin-card {
   background: white;
-  padding: 20px;
+  padding: 16px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Botones */
+.admin-card-actions button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.admin-card-actions .rechazar {
+  background: #f59e0b;
+}
+
+.admin-card-actions .eliminar {
+  background: #dc2626;
+}
+
+/* ===== CRUD Etiquetas ===== */
+.etiquetas-crear {
+  display: flex;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
-.admin-card button {
-  margin-right: 10px;
-  padding: 10px 14px;
+.etiquetas-crear input {
+  flex: 1;
+  padding: 8px;
   border-radius: 8px;
-  border: none;
+  border: 1px solid #cbd5e1;
+}
+
+/* ==== SUBTABS ==== */
+.subtabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.subtabs button {
+  padding: 8px 18px;
+  background: #1f2937;
+  color: #e5e7eb;
+  border: 1px solid #374151;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 15px;
+  transition: 0.2s ease;
 }
 
-.admin-card .rechazar {
-  background: #f59e0b;
+.subtabs button:hover {
+  background: #374151;
+}
+
+.subtabs button.active {
+  background: #2563eb;
+  border-color: #1d4ed8;
   color: white;
+  font-weight: bold;
 }
 
-.admin-card .eliminar {
-  background: #dc2626;
-  color: white;
+/* ==== GRID ==== */
+.admin-grid {
+  margin-top: 20px;
 }
 
-.admin-card button:hover {
-  opacity: 0.85;
+.logout-screen {
+  margin: auto;
+  text-align: center;
+  padding: 40px;
+  font-family: "Arial";
+}
+
+.logout-screen h2 {
+  color: #0066cc;
+  font-size: 28px;
+}
+
+.logout-screen p {
+  font-size: 18px;
+  color: #333;
 }

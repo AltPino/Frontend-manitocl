@@ -1,11 +1,9 @@
-/* ==========================
-   CONTENEDOR PRINCIPAL
-========================== */
-* {
-  box-sizing: border-box;
-}
+/* =======================================================
+   REGISTRO VOLUNTARIO — CSS 100% ENCAPSULADO
+   Este archivo ahora NO afectará nada fuera del formulario.
+=========================================================== */
 
-
+/* Contenedor */
 .registro-wrapper {
   max-width: 520px;
   margin: 60px auto;
@@ -17,15 +15,13 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Animación suave */
+/* Animación */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================
-   TITULO
-========================== */
+/* Título */
 .registro-wrapper h2 {
   text-align: center;
   font-size: 26px;
@@ -34,9 +30,7 @@
   color: #1f2937;
 }
 
-/* ==========================
-   INPUTS
-========================== */
+/* Inputs y select solo dentro del registro */
 .registro-wrapper input,
 .registro-wrapper select {
   width: 100%;
@@ -56,12 +50,10 @@
 .registro-wrapper select:focus {
   border-color: #2563eb;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
 }
 
-/* ==========================
-   BOTÓN
-========================== */
+/* Botón */
 .registro-wrapper button {
   width: 100%;
   background: #2563eb;
@@ -73,16 +65,14 @@
   font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
-  transition: 0.2s ease;
+  transition: 0.2s;
 }
 
 .registro-wrapper button:hover {
   background: #1d4ed8;
 }
 
-/* ==========================
-   MENSAJES
-========================== */
+/* Mensajes */
 .registro-wrapper .error {
   background: #fee2e2;
   color: #b91c1c;

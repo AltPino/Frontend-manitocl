@@ -1,40 +1,54 @@
+/* ===========================
+   Footer Moderno Manito.cl
+=========================== */
+
 .footer {
-  margin-top: 40px;
+  background: #0f766e;
+  color: white;
+  padding: 50px 20px 30px;
+  font-family: "Inter", sans-serif;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-column h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.footer-column p {
+  margin: 5px 0;
+  font-size: 15px;
+  color: #d9f5f2;
+}
+
+/* Divider */
+.footer-divider {
+  height: 1px;
   width: 100%;
-  background: #f3f3f3;
-  padding: 25px 10px;
+  margin: 35px 0 20px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Parte inferior */
+.footer-bottom {
   text-align: center;
-  border-top: 2px solid #e2e2e2;
+  font-size: 14px;
+  color: #c5f4ef;
 }
 
-.footer-content h4 {
-  font-size: 1.4rem;
-  color: #2ea44f;
-  margin-bottom: 5px;
-}
-
-.footer-content p {
-  color: #555;
-  margin-bottom: 10px;
-}
-
-.footer-links {
-  margin-bottom: 10px;
-}
-
-.footer-links a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #2ea44f;
-  font-weight: bold;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-.footer-copy {
-  margin-top: 10px;
-  font-size: 0.85rem;
-  color: #777;
+/* Responsive para móviles */
+@media (max-width: 700px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
 }
