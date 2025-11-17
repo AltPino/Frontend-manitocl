@@ -1,0 +1,130 @@
+.conv-org-wrapper {
+  padding: 20px;
+}
+
+.conv-org-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.conv-org-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: #0D9488;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn-primary:hover {
+  background: #0F766E;
+}
+
+.no-convocatorias {
+  font-size: 16px;
+  color: #666;
+}
+
+.conv-org-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.conv-org-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+.conv-org-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.conv-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.conv-desc {
+  color: #555;
+  margin: 10px 0;
+}
+
+.conv-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.estado {
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+}
+
+.estado-activa {
+  background: #16A34A;
+}
+
+.estado-finalizada {
+  background: #DC2626;
+}
+
+.estado-pendiente {
+  background: #CA8A04;
+}
+
+.estado-eliminada {
+  background: #6B7280;
+}
+
+.conv-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-edit {
+  background: #2563EB;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background: #1E40AF;
+}
+
+.btn-delete {
+  background: #DC2626;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background: #B91C1C;
+}

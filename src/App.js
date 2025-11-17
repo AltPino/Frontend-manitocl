@@ -12,6 +12,9 @@ import RegisterVoluntario from "./pages/RegisterVoluntario";
 import RegisterOrganizacion from "./pages/RegisterOrganizacion";
 import NuevaConvocatoria from "./pages/NuevaConvocatoria";
 import EditarConvocatoria from "./pages/EditarConvocatoria";
+import ConvocatoriasOrganizacion from "./pages/ConvocatoriasOrganizacion";
+import PostulacionesOrganizacion from "./pages/PostulacionesOrganizacion";
+import PerfilOrganizacion from "./pages/PerfilOrganizacion";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -47,6 +50,19 @@ function App() {
               path="/organizacion/editar-convocatoria/:id"
               element={<EditarConvocatoria />}
             />
+            <Route
+              path="/organizacion/convocatorias"
+              element={<ConvocatoriasOrganizacion />}
+            />
+            <Route
+              path="/organizacion/postulaciones"
+              element={<PostulacionesOrganizacion />}
+            />
+            <Route
+              path="/organizacion/perfil"
+              element={<PerfilOrganizacion />}
+            />
+
             <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </main>

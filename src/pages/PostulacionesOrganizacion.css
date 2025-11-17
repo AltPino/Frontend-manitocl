@@ -1,0 +1,57 @@
+.post-wrapper {
+  padding: 20px;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.post-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.post-filter {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #CCC;
+  font-size: 14px;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.post-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.12);
+}
+
+.post-card h3 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.estado {
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: white;
+  font-size: 12px;
+}
+
+.estado-pendiente {
+  background: #ca8a04;
+}
+.estado-aceptada {
+  background: #16a34a;
+}
+.estado-rechazada {
+  background: #dc2626;
+}
