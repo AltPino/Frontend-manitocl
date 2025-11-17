@@ -10,6 +10,8 @@ import DashboardOrganizacion from "./pages/DashboardOrganizacion";
 import AdminPanel from "./pages/AdminPanel";
 import RegisterVoluntario from "./pages/RegisterVoluntario";
 import RegisterOrganizacion from "./pages/RegisterOrganizacion";
+import NuevaConvocatoria from "./pages/NuevaConvocatoria";
+import EditarConvocatoria from "./pages/EditarConvocatoria";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -18,7 +20,6 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-
         {/* NAVBAR SIEMPRE ARRIBA */}
         <Navbar />
 
@@ -29,16 +30,29 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/voluntario" element={<DashboardVoluntario />} />
-            <Route path="/register/voluntario" element={<RegisterVoluntario />} />
-            <Route path="/register/organizacion" element={<RegisterOrganizacion />} />
+            <Route
+              path="/register/voluntario"
+              element={<RegisterVoluntario />}
+            />
+            <Route
+              path="/register/organizacion"
+              element={<RegisterOrganizacion />}
+            />
             <Route path="/organizacion" element={<DashboardOrganizacion />} />
+            <Route
+              path="/organizacion/nueva-convocatoria"
+              element={<NuevaConvocatoria />}
+            />
+            <Route
+              path="/organizacion/editar-convocatoria/:id"
+              element={<EditarConvocatoria />}
+            />
             <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </main>
 
         {/* FOOTER SIEMPRE ABAJO */}
         <Footer />
-
       </Router>
     </AuthProvider>
   );

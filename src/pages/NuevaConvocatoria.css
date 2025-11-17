@@ -1,0 +1,195 @@
+.convocatoria-wrapper {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+textarea {
+  min-height: 90px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.checkbox-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.checkbox-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-submit {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background: #1e40af;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tag-item {
+  padding: 8px 14px;
+  background: #f1f5f9;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid #d0d7df;
+  transition: 0.2s;
+}
+
+.tag-item:hover {
+  background: #e2e8f0;
+}
+
+.tag-item.selected {
+  background: #2563eb;
+  border-color: #1d4ed8;
+  color: white;
+  font-weight: 600;
+}
+
+/* ===== TÍTULO ===== */
+.tag-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1e293b;
+  display: block;
+}
+
+/* ===== CONTENEDOR DE ETIQUETAS ===== */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 5px;
+}
+
+/* ===== CHIP INDIVIDUAL ===== */
+.tag-item {
+  padding: 8px 14px;
+  background: #f1f5f9;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  transition: 0.2s ease;
+}
+
+/* ===== CHIP SELECCIONADO ===== */
+.tag-item.selected {
+  background: #0f766e;
+  color: white;
+  border-color: #0f766e;
+}
+
+.etiqueta-tag:hover,
+.tag:hover {
+  background: #e2e8f0;
+}
+.tag-item.selected:hover {
+  background: #0d685f;
+}
+
+/* ==========================
+   Estilos Etiquetas (Chips)
+   ========================== */
+
+.etiquetas-title,
+.etiquetas-titulo {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1e293b;
+  display: block;
+}
+
+.etiquetas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.etiqueta-tag,
+.tag {
+  padding: 8px 14px;
+  background: #f1f5f9;
+  border-radius: 20px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  color: #334155;
+}
+
+.etiqueta-chip:hover {
+  background: #d7e3ff;
+  border-color: #aac4ff;
+}
+
+.etiqueta-chip.selected {
+  background: #3b82f6;
+  color: white;
+  border-color: #1d4ed8;
+}
+
+.etiqueta-tag.selected,
+.tag.active {
+  background: #3b82f6;
+  border-color: #1d4ed8;
+  color: white;
+  font-weight: 600;
+}
+
+.etiqueta-tag.selected:hover,
+.tag.active:hover {
+  background: #2563eb;
+}

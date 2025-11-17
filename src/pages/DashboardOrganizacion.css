@@ -1,141 +1,151 @@
-/* =======================================================
-   DASHBOARD ORGANIZACIÓN — CSS TOTALMENTE ENCAPSULADO
-=========================================================== */
-
+/* =============== CONTENEDOR GENERAL =============== */
 .org-wrapper {
-  max-width: 1100px;
-  margin: 50px auto;
-  padding: 30px;
-  background: transparent;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
   font-family: "Inter", sans-serif;
 }
 
-/* ==== HEADER (bienvenida) ==== */
+/* =============== HEADER =============== */
 .org-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.org-header .org-avatar {
-  width: 85px;
-  height: 85px;
-  margin: 0 auto 15px;
-  background: #e0f2fe;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 16px;
-  font-size: 45px;
+  gap: 20px;
+  padding: 25px;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.org-header .org-name {
-  font-size: 35px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 8px;
+.org-avatar {
+  font-size: 55px;
 }
 
-.org-header .org-badge {
+.org-name {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.org-badge {
+  margin-top: 5px;
   display: inline-block;
   background: #dbeafe;
-  padding: 6px 16px;
+  color: #1d4ed8;
+  padding: 6px 14px;
   border-radius: 10px;
-  font-size: 15px;
-  color: #1e40af;
+  font-size: 14px;
 }
 
-/* ==== CONTENEDOR DE CONVOCATORIAS ==== */
+/* =============== SECCIÓN CONVOCATORIAS =============== */
 .org-section {
-  margin-top: 35px;
+  margin-top: 40px;
 }
 
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 25px;
 }
 
 .section-header h2 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
 }
 
-/* BOTÓN NUEVA CONVOCATORIA */
 .btn-primary-org {
-  background: #0f766e;
+  background: #006e66;
   color: white;
-  padding: 10px 22px;
   border: none;
-  border-radius: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
   font-size: 15px;
   cursor: pointer;
-  transition: .2s ease;
-  font-weight: 600;
+  transition: 0.2s ease-in-out;
 }
 
 .btn-primary-org:hover {
-  background: #0d5e56;
+  background: #004f4a;
 }
 
-/* ==== Mensaje vacío ==== */
-.no-convocatorias {
-  margin-top: 20px;
-  color: #6b7280;
-  font-size: 17px;
-  text-align: center;
-}
-
-/* ==== GRID DE CONVOCATORIAS ==== */
+/* =============== GRID DE CONVOCATORIAS =============== */
 .conv-grid {
-  margin-top: 25px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 25px;
+  width: 100%;
+  padding: 10px 0;
 }
 
-/* ==== TARJETA ==== */
+
+/* =============== TARJETAS =============== */
 .conv-card {
-  background: white;
+  background: #fff;
   padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-  transition: 0.2s ease;
+  border-radius: 15px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.conv-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 22px rgba(0,0,0,0.11);
+.conv-img {
+  width: 100%;
+  height: 180px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 15px;
 }
 
+/* =============== CONTENIDO DE TARJETA =============== */
 .conv-card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #0f172a;
+  margin: 0;
+  line-height: 1.3;
+  word-break: break-word;
 }
 
-.conv-card .conv-desc {
-  font-size: 15px;
-  color: #555;
-  margin-bottom: 18px;
+.conv-desc {
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  word-break: break-word;
+  max-height: 60px; /* límite */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ==== ACCIONES ==== */
+/* =============== INFO DE LA CONVOCATORIA =============== */
+.conv-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+}
+
+/* =============== BOTONES =============== */
 .card-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 12px;
+  margin-top: auto;
 }
 
 .btn-edit {
   background: #2563eb;
   color: white;
-  padding: 7px 15px;
-  border-radius: 8px;
+  padding: 8px 14px;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.2s;
+  font-size: 14px;
 }
 
 .btn-edit:hover {
@@ -145,13 +155,21 @@
 .btn-delete {
   background: #dc2626;
   color: white;
-  padding: 7px 15px;
-  border-radius: 8px;
+  padding: 8px 14px;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.2s;
+  font-size: 14px;
 }
 
 .btn-delete:hover {
   background: #b91c1c;
+}
+
+/* =============== TEXTO SIN CONVOCATORIAS =============== */
+.no-convocatorias {
+  text-align: center;
+  padding: 30px;
+  color: #555;
+  font-size: 16px;
 }
