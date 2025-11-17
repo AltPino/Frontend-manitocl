@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import api from "../api/axiosConfig";
 import "./NuevaConvocatoria.css";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function NuevaConvocatoria() {
   const { usuario } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const [intereses, setIntereses] = useState([]);
   const [regiones, setRegiones] = useState([]);
   const [comunas, setComunas] = useState([]);
@@ -74,7 +75,7 @@ export default function NuevaConvocatoria() {
       });
 
       alert("Convocatoria creada correctamente");
-      window.location.href = "/organizacion";
+      navigate("/organizacion");
     } catch (error) {
       console.error("ERROR CREAR:", error.response?.data || error);
       alert("Error al crear convocatoria");

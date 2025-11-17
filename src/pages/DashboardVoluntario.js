@@ -9,6 +9,15 @@ export default function DashboardVoluntario() {
   const [cargando, setCargando] = useState(true);
   const navigate = useNavigate();
 
+  // 🚫 PROTEGER RUTA SOLO PARA VOLUNTARIOS
+  useEffect(() => {
+    if (!usuario) return; // aún cargando usuario
+
+    if (usuario.tipo !== "voluntario") {
+      navigate("/login");
+    }
+  }, [usuario, navigate]);
+
   useEffect(() => {
     if (!usuario) return;
     // Cargar convocatorias públicas
@@ -24,8 +33,17 @@ export default function DashboardVoluntario() {
   return (
     <div style={{ maxWidth: "900px", margin: "auto", marginTop: "40px" }}>
       <h2>Bienvenido, {usuario.nombre}</h2>
-      <p>Tipo de cuenta: <b>{usuario.tipo}</b></p>
-      <button onClick={() => { logout(); navigate("/login"); }}>Cerrar sesión</button>
+      <p>
+        Tipo de cuenta: <b>{usuario.tipo}</b>
+      </p>
+      <button
+        onClick={() => {
+          logout();
+          navigate("/login");
+        }}
+      >
+        Cerrar sesión
+      </button>
 
       <hr />
       <h3>Convocatorias activas</h3>
@@ -40,8 +58,12 @@ export default function DashboardVoluntario() {
             <li key={c.id_convocatoria} style={{ marginBottom: "15px" }}>
               <h4>{c.titulo}</h4>
               <p>{c.descripcion}</p>
-              <p><b>Organización:</b> {c.nombre_organizacion}</p>
-              <p><b>Ubicación:</b> {c.ubicacion}</p>
+              <p>
+                <b>Organización:</b> {c.nombre_organizacion}
+              </p>
+              <p>
+                <b>Ubicación:</b> {c.ubicacion}
+              </p>
             </li>
           ))}
         </ul>

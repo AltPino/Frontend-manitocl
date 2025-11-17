@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function DashboardOrganizacion() {
   const { usuario } = useContext(AuthContext);
-  const [convocatorias, setConvocatorias] = useState([]);
   const navigate = useNavigate();
+  const [convocatorias, setConvocatorias] = useState([]);
   const [regiones, setRegiones] = useState([]);
 
   useEffect(() => {
