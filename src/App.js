@@ -15,6 +15,8 @@ import EditarConvocatoria from "./pages/EditarConvocatoria";
 import ConvocatoriasOrganizacion from "./pages/ConvocatoriasOrganizacion";
 import PostulacionesOrganizacion from "./pages/PostulacionesOrganizacion";
 import PerfilOrganizacion from "./pages/PerfilOrganizacion";
+import PerfilVoluntario from "./pages/PerfilVoluntario";
+
 import VerConvocatoria from "./pages/VerConvocatoria";
 
 import Navbar from "./components/Navbar";
@@ -34,6 +36,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/voluntario" element={<DashboardVoluntario />} />
+            <Route path="/perfil" element={<PerfilVoluntario />} />
             <Route
               path="/register/voluntario"
               element={<RegisterVoluntario />}

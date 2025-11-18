@@ -1,0 +1,235 @@
+/* ================================
+   CONTENEDOR PRINCIPAL
+================================ */
+.vol-prof-wrapper {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+/* ================================
+   BLOQUE SUPERIOR
+================================ */
+.vol-prof-top {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 25px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+/* ================================
+   AVATAR Y BOTONES
+================================ */
+.vol-prof-avatar-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vol-prof-avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 70px;
+  margin-bottom: 15px;
+  border: 3px solid #e6e6e6;
+}
+
+.vol-prof-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vol-prof-avatar-box button {
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* ================================
+   DATOS PRINCIPALES
+================================ */
+.vol-prof-main h1 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.vol-level {
+  font-size: 15px;
+  background: #eaf3ff;
+  color: #0b56bd;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.vol-level-box {
+  margin-bottom: 20px;
+}
+
+/* GRID DE CAMPOS */
+.vol-prof-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.vol-prof-grid label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.vol-prof-grid input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #cfcfcf;
+  background: #fafafa;
+  font-size: 15px;
+}
+
+.vol-prof-grid input:disabled {
+  opacity: 0.7;
+}
+
+/* ================================
+   ACCIONES
+================================ */
+.vol-prof-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-primary {
+  background: #0b5ed7;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #084bb0;
+}
+
+.btn-danger {
+  background: #d32f2f;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: #b32626;
+}
+
+.btn-secondary {
+  background: #ececec;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background: #d9d9d9;
+}
+
+/* ================================
+   BLOQUE INFERIOR
+================================ */
+.vol-prof-bottom {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.vol-prof-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+}
+
+.vol-prof-card h3 {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+/* ================================
+   POSTULACIONES
+================================ */
+.pv-post-item {
+  background: #f7f9fc;
+  border-left: 5px solid #0b5ed7;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pv-post-item h4 {
+  margin: 0;
+}
+
+.pv-btn-ver {
+  padding: 8px 16px;
+  background: #0b5ed7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pv-btn-ver:hover {
+  background: #094ab0;
+}
+
+/* ================================
+   ESTADOS
+================================ */
+.estado {
+  padding: 5px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+}
+
+.estado-pendiente {
+  background: #ff9800;
+}
+
+.estado-aceptado {
+  background: #4caf50;
+}
+
+.estado-rechazado {
+  background: #e53935;
+}
+
+.estado-finalizado {
+  background: #1976d2;
+}
