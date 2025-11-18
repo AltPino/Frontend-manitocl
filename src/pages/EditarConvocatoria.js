@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axiosConfig";
 import { AuthContext } from "../context/AuthContext";
-import "./NuevaConvocatoria.css"; // reutilizamos los estilos
+import "./NuevaConvocatoria.css";
 
 export default function EditarConvocatoria() {
   const { id } = useParams();
@@ -22,31 +22,29 @@ export default function EditarConvocatoria() {
     imagen: "",
     region: "",
     comuna: "",
-    etiquetas: [],
+    intereses: [], // <-- CORRECTO
   });
 
-  // ================================
+  // ============================
   // Cargar datos iniciales
-  // ================================
+  // ============================
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     cargarRegiones();
     cargarIntereses();
     cargarConvocatoria();
   }, []);
 
-  // Cargar regiones
   const cargarRegiones = async () => {
     const res = await api.get("/regiones");
     setRegiones(res.data);
   };
 
-  // Cargar intereses
   const cargarIntereses = async () => {
     const res = await api.get("/etiquetas/intereses");
     setIntereses(res.data);
   };
 
-  // Cargar convocatoria
   const cargarConvocatoria = async () => {
     try {
       const res = await api.get(`/convocatorias/${id}`);
@@ -59,9 +57,9 @@ export default function EditarConvocatoria() {
         fecha_inicio: c.fecha_inicio?.substring(0, 10),
         fecha_fin: c.fecha_fin?.substring(0, 10),
         imagen: c.imagen,
-        region: c.region,
-        comuna: c.comuna,
-        etiquetas: c.intereses?.map((i) => i.id_etiqueta) || [],
+        region: c.region, // <-- NO TOCAMOS NADA
+        comuna: c.comuna, // <-- NO TOCAMOS NADA
+        intereses: c.intereses?.map((i) => i.id_etiqueta) || [],
       });
 
       cargarComunas(c.region);
@@ -70,26 +68,24 @@ export default function EditarConvocatoria() {
     }
   };
 
-  // Cargar comunas asociadas
   const cargarComunas = async (idRegion) => {
     if (!idRegion) return;
     const res = await api.get(`/comunas/${idRegion}`);
     setComunas(res.data);
   };
 
-  // Actualizar campos
   const actualizar = (name, value) => {
     setForm({ ...form, [name]: value });
 
     if (name === "region") {
       cargarComunas(value);
-      setForm({ ...form, region: value, comuna: "" });
+      setForm((prev) => ({ ...prev, region: value, comuna: "" }));
     }
   };
 
-  // ================================
-  // Enviar actualización
-  // ================================
+  // ============================
+  // Guardar cambios
+  // ============================
   const guardarCambios = async () => {
     try {
       await api.put(
@@ -97,6 +93,7 @@ export default function EditarConvocatoria() {
         {
           ...form,
           id_organizacion: usuario?.id,
+          intereses: form.intereses, // <-- ESTE ERA EL ERROR
         },
         {
           headers: {
@@ -106,7 +103,7 @@ export default function EditarConvocatoria() {
       );
 
       alert("Convocatoria actualizada correctamente");
-      navigate("/organizacion");
+      navigate("/organizacion/convocatorias");
     } catch (error) {
       console.error("Error actualización:", error);
       alert("Error al actualizar convocatoria");
@@ -212,15 +209,16 @@ export default function EditarConvocatoria() {
             <button
               key={i.id_etiqueta}
               className={
-                form.etiquetas.includes(i.id_etiqueta) ? "tag active" : "tag"
+                form.intereses.includes(i.id_etiqueta) ? "tag active" : "tag"
               }
               onClick={() => {
-                const nueva = form.etiquetas.includes(i.id_etiqueta)
-                  ? form.etiquetas.filter((x) => x !== i.id_etiqueta)
-                  : [...form.etiquetas, i.id_etiqueta];
+                const nueva = form.intereses.includes(i.id_etiqueta)
+                  ? form.intereses.filter((x) => x !== i.id_etiqueta)
+                  : [...form.intereses, i.id_etiqueta];
 
-                actualizar("etiquetas", nueva);
+                actualizar("intereses", nueva); // <-- CORREGIDO
               }}
+              type="button"
             >
               {i.nombre}
             </button>

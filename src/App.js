@@ -15,6 +15,7 @@ import EditarConvocatoria from "./pages/EditarConvocatoria";
 import ConvocatoriasOrganizacion from "./pages/ConvocatoriasOrganizacion";
 import PostulacionesOrganizacion from "./pages/PostulacionesOrganizacion";
 import PerfilOrganizacion from "./pages/PerfilOrganizacion";
+import VerConvocatoria from "./pages/VerConvocatoria";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -62,6 +63,7 @@ function App() {
               path="/organizacion/perfil"
               element={<PerfilOrganizacion />}
             />
+            <Route path="/convocatoria/:id" element={<VerConvocatoria />} />
 
             <Route path="/admin" element={<AdminPanel />} />
           </Routes>

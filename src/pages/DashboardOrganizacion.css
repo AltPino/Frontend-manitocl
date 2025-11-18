@@ -321,3 +321,16 @@
 .org-section {
   margin-top: 40px;
 }
+
+.btn-view {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-view:hover {
+  background-color: #2d89ca;
+}

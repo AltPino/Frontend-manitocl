@@ -436,7 +436,15 @@ export default function AdminPanel() {
               {subVistaConv === "pendientes" &&
                 convPendientesFiltradas.map((c) => (
                   <div className="admin-card" key={c.id_convocatoria}>
-                    <h3>{c.titulo}</h3>
+                    <h3
+                      onClick={() =>
+                        navigate(`/convocatoria/${c.id_convocatoria}`)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      {c.titulo}
+                    </h3>
+
                     <p>
                       <strong>Organización:</strong> {c.nombre_organizacion}
                     </p>
@@ -467,7 +475,15 @@ export default function AdminPanel() {
               {subVistaConv === "activas" &&
                 convActivasFiltradas.map((c) => (
                   <div className="admin-card" key={c.id_convocatoria}>
-                    <h3>{c.titulo}</h3>
+                    <h3
+                      onClick={() =>
+                        navigate(`/convocatoria/${c.id_convocatoria}`)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      {c.titulo}
+                    </h3>
+
                     <p>
                       <strong>Organización:</strong> {c.nombre_organizacion}
                     </p>
@@ -498,7 +514,15 @@ export default function AdminPanel() {
               {subVistaConv === "cerradas" &&
                 convCerradasFiltradas.map((c) => (
                   <div className="admin-card" key={c.id_convocatoria}>
-                    <h3>{c.titulo}</h3>
+                    <h3
+                      onClick={() =>
+                        navigate(`/convocatoria/${c.id_convocatoria}`)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      {c.titulo}
+                    </h3>
+
                     <p>
                       <strong>Organización:</strong> {c.nombre_organizacion}
                     </p>
@@ -529,7 +553,15 @@ export default function AdminPanel() {
               {subVistaConv === "eliminadas" &&
                 convEliminadasFiltradas.map((c) => (
                   <div className="admin-card" key={c.id_convocatoria}>
-                    <h3>{c.titulo}</h3>
+                    <h3
+                      onClick={() =>
+                        navigate(`/convocatoria/${c.id_convocatoria}`)
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      {c.titulo}
+                    </h3>
+
                     <p>
                       <strong>Organización:</strong> {c.nombre_organizacion}
                     </p>

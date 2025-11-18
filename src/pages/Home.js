@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axiosConfig";
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [convocatorias, setConvocatorias] = useState([]);
   const [intereses, setIntereses] = useState([]);
   const [regiones, setRegiones] = useState([]);
   const [comunas, setComunas] = useState([]);
+  const navigate = useNavigate();
 
   const [filtroInteres, setFiltroInteres] = useState("");
   const [filtroRegion, setFiltroRegion] = useState("");
@@ -59,13 +61,14 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-
       {/* ============= HERO SECTION ============= */}
       <section className="hero">
         <div className="hero-content">
           <h1>Conecta. Ayuda. Transforma.</h1>
           <p>Encuentra oportunidades de voluntariado cerca de ti.</p>
-          <a href="/register" className="cta-btn">Únete como voluntario</a>
+          <a href="/register" className="cta-btn">
+            Únete como voluntario
+          </a>
         </div>
       </section>
 
@@ -74,7 +77,6 @@ const Home = () => {
         <h2>Filtrar convocatorias</h2>
 
         <div className="filtro-grid">
-
           {/* Intereses */}
           <select
             value={filtroInteres}
@@ -94,7 +96,9 @@ const Home = () => {
             onChange={(e) => {
               const id = e.target.value;
               setRegionId(id);
-              const regionObj = regiones.find(r => String(r.id_region) === String(id));
+              const regionObj = regiones.find(
+                (r) => String(r.id_region) === String(id)
+              );
               setFiltroRegion(regionObj ? regionObj.nombre : "");
               setFiltroComuna("");
             }}
@@ -120,7 +124,6 @@ const Home = () => {
               </option>
             ))}
           </select>
-
         </div>
       </section>
 
@@ -129,7 +132,6 @@ const Home = () => {
         <h2>Convocatorias disponibles</h2>
 
         <div className="convocatorias-grid">
-
           {convocatorias.length === 0 && (
             <p className="no-results">No hay convocatorias disponibles.</p>
           )}
@@ -137,27 +139,43 @@ const Home = () => {
           {convocatorias.map((c) => (
             <div className="card" key={c.id_convocatoria}>
               <img
-                src={c.imagen || "https://via.placeholder.com/400x200?text=Voluntariado"}
+                src={
+                  c.imagen ||
+                  "https://via.placeholder.com/400x200?text=Voluntariado"
+                }
                 alt="Imagen convocatoria"
               />
               <div className="card-body">
-                <h3>{c.titulo}</h3>
+                <h3
+                  onClick={() => navigate(`/convocatoria/${c.id_convocatoria}`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {c.titulo}
+                </h3>
+
                 <p className="descripcion">{c.descripcion}</p>
 
-                <p><strong>Región:</strong> {c.region}</p>
-                <p><strong>Comuna:</strong> {c.comuna}</p>
-                <p><strong>Organización:</strong> {c.nombre_organizacion}</p>
+                <p>
+                  <strong>Región:</strong> {c.region}
+                </p>
+                <p>
+                  <strong>Comuna:</strong> {c.comuna}
+                </p>
+                <p>
+                  <strong>Organización:</strong> {c.nombre_organizacion}
+                </p>
 
-                <a href={`/convocatoria/${c.id_convocatoria}`} className="card-btn">
+                <a
+                  href={`/convocatoria/${c.id_convocatoria}`}
+                  className="card-btn"
+                >
                   Ver detalles
                 </a>
               </div>
             </div>
           ))}
-
         </div>
       </section>
-
     </div>
   );
 };

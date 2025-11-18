@@ -95,6 +95,15 @@ export default function ConvocatoriasOrganizacion() {
               </div>
 
               <div className="conv-actions">
+                {/* BOTÓN VER */}
+                <button
+                  className="btn-view"
+                  onClick={() => navigate(`/convocatoria/${c.id_convocatoria}`)}
+                >
+                  Ver
+                </button>
+
+                {/* BOTÓN EDITAR */}
                 <button
                   className="btn-edit"
                   onClick={() =>
@@ -106,6 +115,7 @@ export default function ConvocatoriasOrganizacion() {
                   Editar
                 </button>
 
+                {/* BOTÓN ELIMINAR */}
                 <button
                   className="btn-delete"
                   onClick={() => eliminarConvocatoria(c.id_convocatoria)}

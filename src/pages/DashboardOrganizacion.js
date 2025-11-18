@@ -224,7 +224,15 @@ export default function DashboardOrganizacion() {
                     />
                   )}
 
-                  <h3>{c.titulo}</h3>
+                  <h3
+                    onClick={() =>
+                      navigate(`/convocatoria/${c.id_convocatoria}`)
+                    }
+                    style={{ cursor: "pointer" }}
+                  >
+                    {c.titulo}
+                  </h3>
+
                   <p className="conv-desc">{c.descripcion}</p>
 
                   <div className="conv-info">
@@ -239,6 +247,17 @@ export default function DashboardOrganizacion() {
                   </div>
 
                   <div className="card-actions">
+                    <button
+                      className="btn-view"
+                      onClick={() =>
+                        navigate(
+                          `/organizacion/convocatoria/${c.id_convocatoria}`
+                        )
+                      }
+                    >
+                      Ver
+                    </button>
+
                     <button
                       className="btn-edit"
                       onClick={() =>
