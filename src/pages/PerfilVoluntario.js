@@ -12,8 +12,10 @@ export default function PerfilVoluntario() {
   const [editando, setEditando] = useState(false);
   const [cargando, setCargando] = useState(true);
 
-  // Para abrir input file
   const fileInputRef = useRef(null);
+
+  const [regiones, setRegiones] = useState([]);
+  const [comunas, setComunas] = useState([]);
 
   const [form, setForm] = useState({
     nombre_completo: "",
@@ -27,9 +29,34 @@ export default function PerfilVoluntario() {
     puntos: 0,
   });
 
-  // ===============================
-  // Cargar perfil
-  // ===============================
+  // ============================================================
+  // Cargar regiones
+  // ============================================================
+  const cargarRegiones = async () => {
+    try {
+      const res = await api.get("/regiones");
+      setRegiones(res.data);
+    } catch (err) {
+      console.error("Error cargando regiones:", err);
+    }
+  };
+
+  // ============================================================
+  // Cargar comunas de la región
+  // ============================================================
+  const cargarComunas = async (idRegion) => {
+    if (!idRegion) return;
+    try {
+      const res = await api.get(`/comunas/${idRegion}`);
+      setComunas(res.data);
+    } catch (err) {
+      console.error("Error cargando comunas:", err);
+    }
+  };
+
+  // ============================================================
+  // Cargar perfil del voluntario
+  // ============================================================
   useEffect(() => {
     if (!usuario?.id) return;
 
@@ -38,6 +65,9 @@ export default function PerfilVoluntario() {
         const res = await api.get(`/perfil/voluntario/${usuario.id}`);
         setPerfil(res.data);
         setForm(res.data);
+
+        await cargarRegiones();
+        await cargarComunas(res.data.region);
       } catch (error) {
         console.error("Error cargando perfil:", error);
       } finally {
@@ -48,55 +78,59 @@ export default function PerfilVoluntario() {
     cargarPerfil();
   }, [usuario]);
 
-  // ===============================
-  // Subir foto a Cloudinary
-  // ===============================
+  // ============================================================
+  // Subir foto del voluntario
+  // ============================================================
   const subirFoto = async (e) => {
     const archivo = e.target.files[0];
     if (!archivo) return;
 
-    const fd = new FormData();
-    fd.append("file", archivo);
-    fd.append("upload_preset", "manitocl");
+    const formData = new FormData();
+    formData.append("foto", archivo);
 
     try {
-      const r = await fetch(
-        "https://api.cloudinary.com/v1_1/manitocl/image/upload",
+      const res = await api.post(
+        `/perfil/voluntario/subir-foto/${usuario.id}`,
+        formData,
         {
-          method: "POST",
-          body: fd,
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
-      const data = await r.json();
+      const fotoUrl = res.data.fotoUrl;
 
-      if (!data.secure_url) {
-        alert("Error subiendo la imagen");
-        return;
-      }
+      setPerfil((prev) => ({
+        ...prev,
+        foto_perfil_voluntario: fotoUrl,
+      }));
 
-      // Guardar foto en la BD
-      await api.put(`/perfil/voluntario/${usuario.id}`, {
-        foto_perfil_voluntario: data.secure_url,
-      });
-
-      // Actualizar en pantalla
-      setPerfil((p) => ({ ...p, foto_perfil_voluntario: data.secure_url }));
-      setForm((p) => ({ ...p, foto_perfil_voluntario: data.secure_url }));
+      setForm((prev) => ({
+        ...prev,
+        foto_perfil_voluntario: fotoUrl,
+      }));
 
       alert("Foto actualizada correctamente");
-    } catch (err) {
-      console.error("Error subiendo foto:", err);
+    } catch (error) {
+      console.error("Error subiendo foto:", error);
       alert("No se pudo subir la foto");
     }
   };
 
-  // Cambios en inputs
+  // ============================================================
+  // Controlar cambios en los inputs
+  // ============================================================
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+
+    if (e.target.name === "region") {
+      cargarComunas(e.target.value);
+      setForm({ ...form, region: e.target.value, comuna: "" });
+    }
   };
 
-  // Guardar cambios
+  // ============================================================
+  // Guardar cambios del perfil
+  // ============================================================
   const guardarCambios = async () => {
     try {
       await api.put(`/perfil/voluntario/${usuario.id}`, form);
@@ -104,7 +138,7 @@ export default function PerfilVoluntario() {
       setEditando(false);
       alert("Perfil actualizado correctamente");
     } catch (error) {
-      console.error("Error guardando:", error);
+      console.error("Error guardando perfil:", error);
       alert("Error al guardar perfil");
     }
   };
@@ -114,9 +148,9 @@ export default function PerfilVoluntario() {
 
   return (
     <div className="vol-prof-wrapper">
-      {/* --------- BLOQUE SUPERIOR --------- */}
+      {/* =================== BLOQUE SUPERIOR ===================== */}
       <div className="vol-prof-top">
-        {/* --------- AVATAR + BOTONES --------- */}
+        {/* ============ AVATAR + BOTONES ============ */}
         <div className="vol-prof-avatar-box">
           <div className="vol-prof-avatar">
             {form.foto_perfil_voluntario ? (
@@ -126,26 +160,21 @@ export default function PerfilVoluntario() {
             )}
           </div>
 
-          {/* Botón editar perfil */}
           <button
             className="btn-secondary"
-            type="button"
             onClick={() => setEditando((prev) => !prev)}
           >
             {editando ? "Dejar de editar" : "Editar perfil"}
           </button>
 
-          {/* Botón cambiar foto */}
           <button
             className="btn-secondary"
-            type="button"
-            onClick={() => fileInputRef.current.click()}
             style={{ marginTop: "10px" }}
+            onClick={() => fileInputRef.current.click()}
           >
             Cambiar foto
           </button>
 
-          {/* Input para subir imagen */}
           <input
             type="file"
             ref={fileInputRef}
@@ -155,26 +184,18 @@ export default function PerfilVoluntario() {
           />
         </div>
 
-        {/* --------- DATOS PRINCIPALES --------- */}
+        {/* ============ DATOS PRINCIPALES ============ */}
         <div className="vol-prof-main">
           <h1>{form.nombre_completo}</h1>
 
-          <div className="vol-level-box">
-            <span className="vol-level">
-              Nivel {perfil.nivel} · {perfil.puntos} pts
-            </span>
-          </div>
+          <span className="vol-level">
+            Nivel {perfil.nivel} · {perfil.puntos} pts
+          </span>
 
           <div className="vol-prof-grid">
             <div>
               <label>RUT</label>
-              <input
-                type="text"
-                name="rut"
-                value={form.rut || ""}
-                onChange={handleChange}
-                disabled={!editando}
-              />
+              <input type="text" value={form.rut} disabled />
             </div>
 
             <div>
@@ -193,32 +214,44 @@ export default function PerfilVoluntario() {
 
             <div>
               <label>Región</label>
-              <input
-                type="text"
+              <select
                 name="region"
                 value={form.region}
                 onChange={handleChange}
                 disabled={!editando}
-              />
+              >
+                <option value="">Selecciona región</option>
+                {regiones.map((r) => (
+                  <option key={r.id_region} value={r.id_region}>
+                    {r.nombre}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>
               <label>Comuna</label>
-              <input
-                type="text"
+              <select
                 name="comuna"
                 value={form.comuna}
                 onChange={handleChange}
                 disabled={!editando}
-              />
+              >
+                <option value="">Selecciona comuna</option>
+                {comunas.map((c) => (
+                  <option key={c.id_comuna} value={c.nombre}>
+                    {c.nombre}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
       </div>
 
-      {/* --------- ACCIONES --------- */}
+      {/* =================== ACCIONES ===================== */}
       <div className="vol-prof-actions">
-        {editando ? (
+        {editando && (
           <>
             <button className="btn-primary" onClick={guardarCambios}>
               Guardar cambios
@@ -233,12 +266,10 @@ export default function PerfilVoluntario() {
               Cancelar
             </button>
           </>
-        ) : (
-          <></>
         )}
       </div>
 
-      {/* --------- POSTULACIONES --------- */}
+      {/* =================== POSTULACIONES ===================== */}
       <div className="vol-prof-bottom">
         <div className="vol-prof-card">
           <h3>Mis postulaciones</h3>
