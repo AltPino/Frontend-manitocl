@@ -26,7 +26,7 @@ export default function Login() {
 
       const tipo = res.data.usuario.tipo;
 
-      if (tipo === "voluntario") navigate("/voluntario");
+      if (tipo === "voluntario") navigate("/");
       else if (tipo === "organizacion") navigate("/organizacion");
       else if (tipo === "admin") navigate("/admin");
     } catch (err) {

@@ -34,7 +34,7 @@ export default function Navbar() {
   // ============================
   const NavbarVoluntario = () => (
     <div className="navbar-links">
-      <Link to="/voluntario">Inicio</Link>
+      <Link to="/">Inicio</Link>
       <Link to="/oportunidades">Oportunidades</Link>
       <Link to="/perfil">Mi Perfil</Link>
     </div>

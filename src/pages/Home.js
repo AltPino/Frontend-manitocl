@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import api from "../api/axiosConfig";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; // <-- AGREGADO
 
 const Home = () => {
+  const { usuario } = useContext(AuthContext); // <-- AGREGADO
+
   const [convocatorias, setConvocatorias] = useState([]);
   const [intereses, setIntereses] = useState([]);
   const [regiones, setRegiones] = useState([]);
@@ -66,9 +69,13 @@ const Home = () => {
         <div className="hero-content">
           <h1>Conecta. Ayuda. Transforma.</h1>
           <p>Encuentra oportunidades de voluntariado cerca de ti.</p>
-          <a href="/register" className="cta-btn">
-            Únete como voluntario
-          </a>
+
+          {/* ⭐ SOLO cambiar esta línea */}
+          {!usuario && (
+            <a href="/register" className="cta-btn">
+              Únete como voluntario
+            </a>
+          )}
         </div>
       </section>
 
