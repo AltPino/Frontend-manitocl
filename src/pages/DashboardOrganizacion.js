@@ -61,19 +61,26 @@ export default function DashboardOrganizacion() {
     const obtenerPostulaciones = async () => {
       try {
         let totalPostulaciones = 0;
+        let voluntariosInteresados = 0;
 
         for (const c of convocatorias) {
           const res = await api.get(
             `/postulaciones/convocatoria/${c.id_convocatoria}`
           );
+
           totalPostulaciones += res.data.length;
+
+          // 🟦 Solo contar interesados reales (NO finalizados)
+          voluntariosInteresados += res.data.filter(
+            (p) => p.estado !== "finalizado"
+          ).length;
         }
 
         setMetricas({
           activas,
           finalizadas,
           postulaciones: totalPostulaciones,
-          interesados: totalPostulaciones,
+          interesados: voluntariosInteresados,
         });
       } catch (error) {
         console.error("Error al contar postulaciones:", error);

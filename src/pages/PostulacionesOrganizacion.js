@@ -1,111 +1,146 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, { useEffect, useState, useContext } from "react";
 import api from "../api/axiosConfig";
+import { AuthContext } from "../context/AuthContext";
 import "./PostulacionesOrganizacion.css";
 
 export default function PostulacionesOrganizacion() {
   const { usuario } = useContext(AuthContext);
   const [convocatorias, setConvocatorias] = useState([]);
   const [postulaciones, setPostulaciones] = useState([]);
-  const [filtro, setFiltro] = useState("todas");
+  const [convocatoriaSeleccionada, setConvocatoriaSeleccionada] = useState("");
 
-  // ======================
-  // 1. Cargar convocatorias de la ONG
-  // ======================
   useEffect(() => {
     if (!usuario?.id) return;
 
-    const cargarConvocatorias = async () => {
-      try {
-        const res = await api.get(`/organizacion/convocatorias/${usuario.id}`);
-        setConvocatorias(res.data);
-      } catch (error) {
-        console.error("Error cargando convocatorias:", error);
-      }
-    };
-
-    cargarConvocatorias();
+    // Cargar convocatorias de la organización
+    api
+      .get(`/organizacion/convocatorias/${usuario.id}`)
+      .then((res) => setConvocatorias(res.data))
+      .catch((err) => console.error(err));
   }, [usuario]);
 
-  // ======================
-  // 2. Cargar postulaciones de cada convocatoria
-  // ======================
-  useEffect(() => {
-    const cargarPostulaciones = async () => {
-      let lista = [];
+  // Cargar postulaciones de una convocatoria
+  const [convocatoriaInfo, setConvocatoriaInfo] = useState(null);
 
-      try {
-        for (const c of convocatorias) {
-          const res = await api.get(
-            `/postulaciones/convocatoria/${c.id_convocatoria}`
-          );
+  const cargarPostulaciones = async (idConv) => {
+    setConvocatoriaSeleccionada(idConv);
 
-          res.data.forEach((p) => {
-            lista.push({
-              ...p,
-              tituloConvocatoria: c.titulo,
-            });
-          });
-        }
+    if (!idConv) {
+      setPostulaciones([]);
+      setConvocatoriaInfo(null);
+      return;
+    }
 
-        setPostulaciones(lista);
-      } catch (error) {
-        console.error("Error cargando postulaciones:", error);
-      }
-    };
+    // Obtener la convocatoria para conocer su estado
+    const resConv = await api.get(`/convocatorias/${idConv}`);
+    setConvocatoriaInfo(resConv.data);
 
-    if (convocatorias.length > 0) cargarPostulaciones();
-  }, [convocatorias]);
+    // Obtener postulaciones
+    const res = await api.get(`/postulaciones/convocatoria/${idConv}`);
+    setPostulaciones(res.data);
+  };
 
-  // ======================
-  // 3. Filtrar postulaciones
-  // ======================
-  const postulacionesFiltradas = postulaciones.filter((p) => {
-    if (filtro === "todas") return true;
-    return p.estado === filtro;
-  });
+  // Aceptar / rechazar postulante
+  const cambiarEstado = async (id_postulacion, estadoNuevo) => {
+    try {
+      await api.put(`/postulaciones/${id_postulacion}`, {
+        estado: estadoNuevo,
+      });
+      await cargarPostulaciones(convocatoriaSeleccionada); // recargar vista
+    } catch (error) {
+      console.error("Error actualizando estado:", error);
+      alert("Error al actualizar estado");
+    }
+  };
 
   return (
     <div className="post-wrapper">
-      <div className="post-header">
-        <h1>Postulaciones Recibidas</h1>
+      <h1>Postulaciones Recibidas</h1>
 
-        <select
-          className="post-filter"
-          value={filtro}
-          onChange={(e) => setFiltro(e.target.value)}
-        >
-          <option value="todas">Todas</option>
-          <option value="pendiente">Pendientes</option>
-          <option value="aceptada">Aceptadas</option>
-          <option value="rechazada">Rechazadas</option>
-        </select>
-      </div>
+      {convocatoriaInfo?.estado === "cerrada" && (
+        <p className="post-closed-msg">
+          Esta convocatoria está finalizada. No se pueden gestionar
+          postulaciones.
+        </p>
+      )}
 
-      {postulacionesFiltradas.length === 0 ? (
-        <p>No hay postulaciones disponibles.</p>
-      ) : (
-        <div className="post-grid">
-          {postulacionesFiltradas.map((p, i) => (
-            <div className="post-card" key={i}>
-              <h3>{p.nombre_voluntario}</h3>
+      {/* Selector de convocatoria */}
+      <select
+        value={convocatoriaSeleccionada}
+        onChange={(e) => cargarPostulaciones(e.target.value)}
+        className="post-select"
+      >
+        <option value="">Selecciona una convocatoria</option>
 
-              <p>
-                <strong>Convocatoria:</strong> {p.tituloConvocatoria}
-              </p>
+        {convocatorias.map((c) => (
+          <option key={c.id_convocatoria} value={c.id_convocatoria}>
+            {c.titulo}
+          </option>
+        ))}
+      </select>
 
-              <p>
-                <strong>Fecha de postulación:</strong>{" "}
-                {new Date(p.fecha_postulacion).toLocaleString()}
-              </p>
+      {/* Tabla */}
+      {convocatoriaSeleccionada && (
+        <table className="post-table">
+          <thead>
+            <tr>
+              <th>Voluntario</th>
+              <th>Email</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
 
-              <p>
-                <strong>Estado:</strong>{" "}
-                <span className={`estado estado-${p.estado}`}>{p.estado}</span>
-              </p>
-            </div>
-          ))}
-        </div>
+          <tbody>
+            {postulaciones.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="post-empty">
+                  No hay postulaciones para esta convocatoria.
+                </td>
+              </tr>
+            ) : (
+              postulaciones.map((p) => (
+                <tr key={p.id_postulacion}>
+                  <td>{p.nombre_completo}</td>
+                  <td>{p.email}</td>
+                  <td>
+                    <span className={`estado-tag estado-${p.estado}`}>
+                      {p.estado}
+                    </span>
+                  </td>
+                  <td>{new Date(p.fecha_postulacion).toLocaleString()}</td>
+
+                  <td className="post-actions">
+                    {convocatoriaInfo?.estado !== "cerrada" &&
+                      p.estado !== "aceptado" && (
+                        <button
+                          className="btn-accept"
+                          onClick={() =>
+                            cambiarEstado(p.id_postulacion, "aceptado")
+                          }
+                        >
+                          Aceptar
+                        </button>
+                      )}
+
+                    {convocatoriaInfo?.estado !== "cerrada" &&
+                      p.estado !== "rechazado" && (
+                        <button
+                          className="btn-reject"
+                          onClick={() =>
+                            cambiarEstado(p.id_postulacion, "rechazado")
+                          }
+                        >
+                          Rechazar
+                        </button>
+                      )}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       )}
     </div>
   );

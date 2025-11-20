@@ -13,6 +13,9 @@ export default function VerConvocatoria() {
   const [postulaciones, setPostulaciones] = useState([]);
   const [cargando, setCargando] = useState(true);
 
+  // ✅ ESTE ES EL STATE CORRECTO
+  const [yaPostulado, setYaPostulado] = useState(false);
+
   useEffect(() => {
     const cargarDatos = async () => {
       try {
@@ -21,6 +24,13 @@ export default function VerConvocatoria() {
 
         const resPost = await api.get(`/postulaciones/convocatoria/${id}`);
         setPostulaciones(resPost.data);
+
+        // ✅ AQUÍ SE DEFINE CORRECTAMENTE
+        setYaPostulado(
+          resPost.data.some(
+            (p) => p.id_voluntario === usuario?.id && p.estado !== "cancelado"
+          )
+        );
       } catch (error) {
         console.error("Error cargando convocatoria:", error);
       } finally {
@@ -29,14 +39,19 @@ export default function VerConvocatoria() {
     };
 
     cargarDatos();
-  }, [id]);
+  }, [id, usuario]);
 
   if (cargando) return <p className="vc-loading">Cargando...</p>;
   if (!convocatoria)
     return <p className="vc-error">Convocatoria no encontrada.</p>;
 
-  const cuposUsados = postulaciones.length;
-  const cuposDisponibles = convocatoria.capacidad - cuposUsados;
+  const cuposUsados =
+    convocatoria.estado === "cerrada" ? 0 : postulaciones.length;
+
+  const cuposDisponibles =
+    convocatoria.estado === "cerrada"
+      ? convocatoria.capacidad
+      : convocatoria.capacidad - cuposUsados;
 
   // 🔥 NO BORRO tu variable, solo la arreglo para que funcione
   const esPropietario =
@@ -54,6 +69,49 @@ export default function VerConvocatoria() {
     } catch (error) {
       console.error("Error al finalizar:", error);
       alert("Error al finalizar la convocatoria");
+    }
+  };
+
+  const postular = async () => {
+    try {
+      await api.post(`/postulaciones`, {
+        id_voluntario: usuario.id,
+        id_convocatoria: convocatoria.id_convocatoria,
+      });
+
+      alert("Postulación enviada correctamente.");
+
+      const resPost = await api.get(`/postulaciones/convocatoria/${id}`);
+      setPostulaciones(resPost.data);
+    } catch (error) {
+      console.error("Error al postular:", error);
+      alert("Error al postular.");
+    }
+  };
+
+  const cancelarPostulacion = async () => {
+    try {
+      // 1. Encontrar la postulación del usuario (no usamos id_convocatoria porque ya viene filtrado)
+      const post = postulaciones.find((p) => p.id_voluntario === usuario.id);
+
+      if (!post) {
+        alert("No se encontró tu postulación.");
+        return;
+      }
+
+      // 2. Llamar al backend usando el id_postulacion real
+      await api.delete(`/postulaciones/${post.id_postulacion}`);
+
+      alert("Has cancelado tu postulación.");
+
+      setYaPostulado(false);
+
+      // 3. Recargar lista de postulaciones
+      const resPost = await api.get(`/postulaciones/convocatoria/${id}`);
+      setPostulaciones(resPost.data);
+    } catch (error) {
+      console.error("Error cancelando postulación:", error);
+      alert("No se pudo cancelar tu postulación.");
     }
   };
 
@@ -160,15 +218,34 @@ export default function VerConvocatoria() {
             )}
 
             {/* 🔥 BOTÓN POSTULAR (NO LO TOCO) */}
-            {usuario?.tipo_usuario === "voluntario" && (
-              <button
-                className="vc-btn-primary"
-                onClick={() =>
-                  navigate(`/postular/${convocatoria.id_convocatoria}`)
-                }
-              >
-                Postular
-              </button>
+            {/* BOTÓN POSTULAR */}
+            {/* === VOLUNTARIO === */}
+            {usuario?.tipo === "voluntario" && (
+              <>
+                {/* Si YA postuló */}
+                {yaPostulado ? (
+                  <>
+                    {/* Solo permitir cancelar si NO está cerrada */}
+                    {convocatoria.estado !== "cerrada" ? (
+                      <button
+                        className="vc-btn-danger"
+                        onClick={cancelarPostulacion}
+                      >
+                        Cancelar postulación
+                      </button>
+                    ) : (
+                      <button className="vc-btn-disabled" disabled>
+                        Ya postulaste
+                      </button>
+                    )}
+                  </>
+                ) : (
+                  /* Si NO ha postulado */
+                  <button className="vc-btn-primary" onClick={postular}>
+                    Postular
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>
