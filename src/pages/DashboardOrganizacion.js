@@ -212,8 +212,11 @@ export default function DashboardOrganizacion() {
         ) : (
           <div className="conv-grid">
             {[...convocatorias]
-              .slice(-3)
-              .reverse()
+              .sort(
+                (a, b) =>
+                  new Date(b.fecha_creacion) - new Date(a.fecha_creacion)
+              )
+              .slice(0, 3)
               .map((c) => (
                 <div key={c.id_convocatoria} className="conv-card">
                   {c.imagen && (
@@ -244,6 +247,9 @@ export default function DashboardOrganizacion() {
                     <span>
                       Fecha: {c.fecha_inicio} → {c.fecha_fin}
                     </span>
+                    <span className={`estado-badge estado-${c.estado}`}>
+                      {c.estado}
+                    </span>
                   </div>
 
                   <div className="card-actions">
@@ -260,7 +266,9 @@ export default function DashboardOrganizacion() {
 
                     <button
                       className="btn-edit"
+                      disabled={c.estado === "cerrada"}
                       onClick={() =>
+                        c.estado !== "cerrada" &&
                         navigate(
                           `/organizacion/editar-convocatoria/${c.id_convocatoria}`
                         )

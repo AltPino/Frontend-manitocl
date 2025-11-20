@@ -106,7 +106,9 @@ export default function ConvocatoriasOrganizacion() {
                 {/* BOTÓN EDITAR */}
                 <button
                   className="btn-edit"
+                  disabled={c.estado === "cerrada"}
                   onClick={() =>
+                    c.estado !== "cerrada" &&
                     navigate(
                       `/organizacion/editar-convocatoria/${c.id_convocatoria}`
                     )

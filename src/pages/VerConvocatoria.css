@@ -94,3 +94,24 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+.vc-btn-danger {
+  background: #dc2626;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.vc-btn-danger:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+
+.vc-btn-danger:active {
+  transform: scale(0.97);
+}

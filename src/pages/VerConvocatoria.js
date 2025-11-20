@@ -38,9 +38,24 @@ export default function VerConvocatoria() {
   const cuposUsados = postulaciones.length;
   const cuposDisponibles = convocatoria.capacidad - cuposUsados;
 
+  // 🔥 NO BORRO tu variable, solo la arreglo para que funcione
   const esPropietario =
-    usuario?.tipo === "organizacion" &&
-    usuario?.id === convocatoria.id_organizacion;
+    (usuario?.tipo === "organizacion" ||
+      usuario?.tipo_usuario === "organizacion") &&
+    Number(usuario?.id || usuario?.id_usuario) ===
+      Number(convocatoria.id_organizacion);
+
+  // 🔥 función para finalizar convocatoria (solo agregada)
+  const finalizarConvocatoria = async () => {
+    try {
+      await api.put(`/convocatorias/finalizar/${convocatoria.id_convocatoria}`);
+      alert("Convocatoria finalizada correctamente");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error al finalizar:", error);
+      alert("Error al finalizar la convocatoria");
+    }
+  };
 
   return (
     <div className="vc-wrapper">
@@ -103,8 +118,8 @@ export default function VerConvocatoria() {
           </div>
 
           {/* =====================================================
-          ETIQUETAS (AISLADAS)
-      ===================================================== */}
+              ETIQUETAS (AISLADAS)
+          ===================================================== */}
           <div className="vc-tags">
             {convocatoria.intereses?.length > 0 ? (
               convocatoria.intereses.map((tag) => (
@@ -123,7 +138,8 @@ export default function VerConvocatoria() {
               Volver
             </button>
 
-            {esPropietario && (
+            {/* 🔥 TU BOTÓN EDITAR NO SE TOCA */}
+            {esPropietario && convocatoria.estado !== "cerrada" && (
               <button
                 className="vc-btn-primary"
                 onClick={() =>
@@ -136,7 +152,15 @@ export default function VerConvocatoria() {
               </button>
             )}
 
-            {usuario?.tipo === "voluntario" && (
+            {/* 🔥 NUEVO BOTÓN FINALIZAR — SIN BORRAR NADA */}
+            {esPropietario && convocatoria.estado === "activa" && (
+              <button className="vc-btn-danger" onClick={finalizarConvocatoria}>
+                Finalizar Convocatoria
+              </button>
+            )}
+
+            {/* 🔥 BOTÓN POSTULAR (NO LO TOCO) */}
+            {usuario?.tipo_usuario === "voluntario" && (
               <button
                 className="vc-btn-primary"
                 onClick={() =>

@@ -334,3 +334,56 @@
 .btn-view:hover {
   background-color: #2d89ca;
 }
+
+/* Badge de estado */
+.estado-badge {
+  display: inline-block;
+  width: fit-content;
+  max-width: max-content;
+  align-self: flex-start; 
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: white;
+}
+
+
+.estado-badge {
+  margin-top: 8px;
+}
+
+
+/* ESTILOS POR ESTADO */
+.estado-activa {
+  background: #16A34A; /* verde */
+}
+
+.estado-cerrada {
+  background: #6B7280; /* gris */
+}
+
+.estado-pendiente {
+  background: #CA8A04; /* amarillo */
+}
+
+.estado-eliminada {
+  background: #DC2626; /* rojo */
+}
+
+/* Botón editar deshabilitado */
+.btn-edit:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.estado-activa,
+.estado-cerrada,
+.estado-pendiente,
+.estado-eliminada {
+  width: auto !important;
+  flex: 0 0 auto !important;
+}
+

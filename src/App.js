@@ -59,6 +59,11 @@ function App() {
               element={<ConvocatoriasOrganizacion />}
             />
             <Route
+              path="/organizacion/convocatoria/:id"
+              element={<VerConvocatoria />}
+            />
+
+            <Route
               path="/organizacion/postulaciones"
               element={<PostulacionesOrganizacion />}
             />
