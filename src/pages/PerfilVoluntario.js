@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import api from "../api/axiosConfig";
 import "./PerfilVoluntario.css";
 import { useNavigate } from "react-router-dom";
+import MisPostulacionesVoluntario from "./MisPostulacionesVoluntario";
 
 export default function PerfilVoluntario() {
   const { usuario } = useContext(AuthContext);
@@ -272,7 +273,7 @@ export default function PerfilVoluntario() {
       {/* =================== POSTULACIONES ===================== */}
       <div className="vol-prof-bottom">
         <div className="vol-prof-card">
-          <h3>Mis postulaciones</h3>
+          <MisPostulacionesVoluntario />
 
           {perfil.postulaciones?.length === 0 ? (
             <p>Aún no tienes postulaciones.</p>

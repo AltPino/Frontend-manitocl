@@ -53,6 +53,11 @@ export default function PostulacionesOrganizacion() {
     }
   };
 
+  const generarCertificado = (postulacion) => {
+    // Aquí generaremos el PDF simple
+    window.open(`/certificado?id=${postulacion.id_postulacion}`, "_blank");
+  };
+
   return (
     <div className="post-wrapper">
       <h1>Postulaciones Recibidas</h1>
@@ -89,6 +94,14 @@ export default function PostulacionesOrganizacion() {
               <th>Estado</th>
               <th>Fecha</th>
               <th>Acciones</th>
+              {postulaciones.estado === "finalizado" && (
+                <button
+                  className="btn-cert"
+                  onClick={() => generarCertificado(postulaciones)}
+                >
+                  Certificado
+                </button>
+              )}
             </tr>
           </thead>
 
