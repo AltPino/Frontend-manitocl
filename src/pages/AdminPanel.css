@@ -166,3 +166,73 @@
   font-size: 18px;
   color: #333;
 }
+
+.medallas-crear {
+  display: flex;
+  gap: 10px;
+  margin: 16px 0 24px;
+}
+
+.medallas-crear input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.medallas-crear button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.medalla-icono {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.medalla-info-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.condiciones-form {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.condiciones-form label {
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+
+.condiciones-form input,
+.condiciones-form select,
+.condiciones-form textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-danger {
+  margin-top: 10px;
+  background: #dc2626;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+}

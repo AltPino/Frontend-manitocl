@@ -41,6 +41,17 @@ export default function AdminPanel() {
   const [editandoId, setEditandoId] = useState(null);
   const [editandoTexto, setEditandoTexto] = useState("");
 
+  // ==================== MEDALLAS ====================
+  const [nuevoNombreMed, setNuevoNombreMed] = useState("");
+  const [nuevaDescMed, setNuevaDescMed] = useState("");
+  const [nuevoIconoMed, setNuevoIconoMed] = useState("");
+
+  const [tipoCondicion, setTipoCondicion] = useState("postulaciones_totales");
+  const [valorCondicion, setValorCondicion] = useState("");
+  const [descripcionCondicion, setDescripcionCondicion] = useState("");
+  const [condicionesTemp, setCondicionesTemp] = useState([]);
+  const [medallasVol, setMedallasVol] = useState([]);
+
   // ==================== USE EFFECT ====================
   useEffect(() => {
     if (vista === "organizaciones") {
@@ -64,6 +75,10 @@ export default function AdminPanel() {
 
     if (vista === "etiquetas") {
       cargarIntereses();
+    }
+
+    if (vista === "medallas") {
+      cargarMedallasVol();
     }
   }, [vista]);
 
@@ -180,6 +195,53 @@ export default function AdminPanel() {
     cargarIntereses();
   };
 
+  // ==================== MEDALLAS ====================
+  const cargarMedallasVol = async () => {
+    const res = await api.get("/medallas/voluntario");
+    setMedallasVol(res.data);
+  };
+
+  const crearMedallaConCondiciones = async () => {
+    if (!nuevoNombreMed.trim()) return alert("Nombre requerido");
+
+    // 1️⃣ Crear la medalla
+    await api.post("/medallas/crear", {
+      nombre: nuevoNombreMed,
+      descripcion: nuevaDescMed,
+      icono: nuevoIconoMed || null,
+    });
+
+    // 2️⃣ Obtener todas las medallas y buscar la recién creada
+    const res = await api.get("/medallas/voluntario");
+    const medalla = res.data.find((m) => m.nombre === nuevoNombreMed);
+
+    if (!medalla) return alert("Error al obtener la medalla creada");
+
+    // 3️⃣ Crear condiciones asociadas
+    for (let c of condicionesTemp) {
+      await api.post("/medallas/condiciones/crear", {
+        id_medalla: medalla.id_medalla,
+        tipo: c.tipo,
+        valor_requerido: c.valor,
+        descripcion: c.descripcion,
+      });
+    }
+
+    alert("Medalla y condiciones guardadas!");
+    setNuevoNombreMed("");
+    setNuevaDescMed("");
+    setNuevoIconoMed("");
+    setCondicionesTemp([]);
+    cargarMedallasVol();
+  };
+
+  const eliminarMedalla = async (id) => {
+    if (!window.confirm("¿Eliminar esta medalla?")) return;
+
+    await api.delete(`/medallas/eliminar/${id}`);
+    cargarMedallasVol();
+  };
+
   // ==================== FILTROS ====================
   const filtrarVol = (lista) =>
     lista.filter((v) =>
@@ -260,6 +322,13 @@ export default function AdminPanel() {
           onClick={() => setVista("voluntarios")}
         >
           Voluntarios
+        </button>
+
+        <button
+          className={vista === "medallas" ? "active" : ""}
+          onClick={() => setVista("medallas")}
+        >
+          Medallas
         </button>
 
         <button
@@ -717,6 +786,143 @@ export default function AdminPanel() {
                     </div>
                   </div>
                 ))}
+            </div>
+          </section>
+        )}
+
+        {/* ======================================================
+                        MEDALLAS
+        ====================================================== */}
+        {vista === "medallas" && (
+          <section>
+            <h2 className="blue-title">Gestión de Medallas</h2>
+
+            {/* FORMULARIO DE CREACIÓN */}
+            <div className="admin-card">
+              <h3>Nueva Medalla</h3>
+
+              <input
+                type="text"
+                placeholder="Nombre de la medalla"
+                value={nuevoNombreMed}
+                onChange={(e) => setNuevoNombreMed(e.target.value)}
+              />
+
+              <input
+                type="text"
+                placeholder="Descripción de la medalla"
+                value={nuevaDescMed}
+                onChange={(e) => setNuevaDescMed(e.target.value)}
+              />
+
+              <input
+                type="text"
+                placeholder="URL del icono (Cloudinary)"
+                value={nuevoIconoMed}
+                onChange={(e) => setNuevoIconoMed(e.target.value)}
+              />
+
+              <h4>Agregar condiciones</h4>
+
+              <select
+                value={tipoCondicion}
+                onChange={(e) => setTipoCondicion(e.target.value)}
+              >
+                <option value="postulaciones_totales">
+                  Postulaciones Totales
+                </option>
+                <option value="postulaciones_finalizadas">
+                  Postulaciones Finalizadas
+                </option>
+                <option value="postulaciones_mensuales">
+                  Postulaciones Mensuales
+                </option>
+              </select>
+
+              <input
+                type="number"
+                placeholder="Valor requerido"
+                value={valorCondicion}
+                onChange={(e) => setValorCondicion(e.target.value)}
+              />
+
+              <input
+                type="text"
+                placeholder="Descripción opcional"
+                value={descripcionCondicion}
+                onChange={(e) => setDescripcionCondicion(e.target.value)}
+              />
+
+              <button
+                className="btn-secondary"
+                onClick={() => {
+                  if (!valorCondicion) return alert("Debes ingresar un valor");
+                  setCondicionesTemp([
+                    ...condicionesTemp,
+                    {
+                      tipo: tipoCondicion,
+                      valor: valorCondicion,
+                      descripcion: descripcionCondicion,
+                    },
+                  ]);
+                  setValorCondicion("");
+                  setDescripcionCondicion("");
+                }}
+              >
+                + Agregar condición
+              </button>
+
+              {/* LISTA TEMPORAL */}
+              {condicionesTemp.length > 0 &&
+                condicionesTemp.map((c, i) => (
+                  <div key={i} className="cond-card">
+                    <strong>{c.tipo}</strong> — {c.valor}
+                    <br />
+                    {c.descripcion}
+                    <button
+                      onClick={() =>
+                        setCondicionesTemp(
+                          condicionesTemp.filter((_, idx) => idx !== i)
+                        )
+                      }
+                    >
+                      ❌
+                    </button>
+                  </div>
+                ))}
+
+              <button
+                className="btn-primary"
+                onClick={crearMedallaConCondiciones}
+              >
+                Guardar Medalla + Condiciones
+              </button>
+            </div>
+
+            {/* LISTA DE MEDALLAS */}
+            <div className="admin-grid">
+              {medallasVol.map((m) => (
+                <div key={m.id_medalla} className="admin-card">
+                  {m.icono && (
+                    <img
+                      src={m.icono}
+                      className="medalla-icono"
+                      alt={m.nombre}
+                    />
+                  )}
+                  <h3>{m.nombre}</h3>
+                  <p>{m.descripcion}</p>
+
+                  <div className="admin-card-actions">
+                    <button
+                      className="eliminar"
+                      onClick={() => eliminarMedalla(m.id_medalla)}
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         )}

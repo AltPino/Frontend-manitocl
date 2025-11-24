@@ -16,6 +16,7 @@ import ConvocatoriasOrganizacion from "./pages/ConvocatoriasOrganizacion";
 import PostulacionesOrganizacion from "./pages/PostulacionesOrganizacion";
 import PerfilOrganizacion from "./pages/PerfilOrganizacion";
 import PerfilVoluntario from "./pages/PerfilVoluntario";
+import AdminMedallaCondiciones from "./pages/AdminMedallaCondiciones";
 
 import VerConvocatoria from "./pages/VerConvocatoria";
 
@@ -74,6 +75,10 @@ function App() {
             <Route path="/convocatoria/:id" element={<VerConvocatoria />} />
 
             <Route path="/admin" element={<AdminPanel />} />
+            <Route
+              path="/admin/medallas/:id/condiciones"
+              element={<AdminMedallaCondiciones />}
+            />
           </Routes>
         </main>
 
