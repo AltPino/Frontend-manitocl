@@ -5,6 +5,7 @@ import "./registerOrganizacion.css";
 
 export default function RegisterOrganizacion() {
   const navigate = useNavigate();
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
 
   const [form, setForm] = useState({
     nombre_completo: "",
@@ -37,6 +38,11 @@ export default function RegisterOrganizacion() {
     e.preventDefault();
     setMensaje("");
     setError("");
+
+    if (!aceptaTerminos) {
+      alert("Debes aceptar los Términos y Condiciones");
+      return;
+    }
 
     try {
       await api.post("/auth/register", form);
@@ -159,6 +165,27 @@ export default function RegisterOrganizacion() {
             value={form.sitio_web}
             onChange={handleChange}
           />
+
+          <div className="terminos-box">
+            <label className="terminos-label">
+              <input
+                type="checkbox"
+                checked={aceptaTerminos}
+                onChange={(e) => setAceptaTerminos(e.target.checked)}
+              />
+              <span className="check-custom"></span>
+
+              <span className="terminos-text">
+                Acepto los{" "}
+                <span
+                  className="terminos-link"
+                  onClick={() => navigate("/terminos")}
+                >
+                  Términos y Condiciones
+                </span>
+              </span>
+            </label>
+          </div>
 
           <button type="submit" className="btn-registrar">
             Registrar organización

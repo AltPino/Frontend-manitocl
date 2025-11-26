@@ -5,6 +5,7 @@ import "./registerVoluntario.css";
 
 export default function RegisterVoluntario() {
   const navigate = useNavigate();
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
 
   const [form, setForm] = useState({
     nombre_completo: "",
@@ -55,6 +56,11 @@ export default function RegisterVoluntario() {
     e.preventDefault();
     setError("");
     setMensaje("");
+
+    if (!aceptaTerminos) {
+      alert("Debes aceptar los Términos y Condiciones");
+      return;
+    }
 
     try {
       await api.post("/auth/register", {
@@ -160,6 +166,27 @@ export default function RegisterVoluntario() {
             </option>
           ))}
         </select>
+
+        <div className="terminos-box">
+          <label className="terminos-label">
+            <input
+              type="checkbox"
+              checked={aceptaTerminos}
+              onChange={(e) => setAceptaTerminos(e.target.checked)}
+            />
+            <span className="check-custom"></span>
+
+            <span className="terminos-text">
+              Acepto los{" "}
+              <span
+                className="terminos-link"
+                onClick={() => navigate("/terminos")}
+              >
+                Términos y Condiciones
+              </span>
+            </span>
+          </label>
+        </div>
 
         <button type="submit">Crear cuenta</button>
       </form>

@@ -281,17 +281,19 @@ export default function PerfilVoluntario() {
         {medallas.length === 0 ? (
           <p>Aún no has obtenido medallas.</p>
         ) : (
-          <div className="medallas-grid">
-            {medallas.map((m) => (
-              <div key={m.id_medalla} className="medalla-item">
-                <img src={m.icono} className="medalla-icono" alt={m.nombre} />
+          <div className="vol-medallas">
+            <div className="medallas-grid">
+              {medallas.map((m) => (
+                <div key={m.id_medalla} className="medalla-item">
+                  <img src={m.icono} className="medalla-icono" alt={m.nombre} />
 
-                <div className="medalla-tooltip">
-                  <h4>{m.nombre}</h4>
-                  <p>{m.descripcion}</p>
+                  <div className="medalla-tooltip">
+                    <h4>{m.nombre}</h4>
+                    <p>{m.descripcion}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
       </div>

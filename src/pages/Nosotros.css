@@ -1,0 +1,36 @@
+.nosotros-wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.nosotros-wrapper h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #0f766e;
+}
+
+.nosotros-intro {
+  text-align: center;
+  font-size: 17px;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+.nosotros-section {
+  margin-bottom: 25px;
+}
+
+.nosotros-section h2 {
+  color: #0bd79a;
+  margin-bottom: 8px;
+}
+
+.nosotros-section p,
+.nosotros-section li {
+  color: #555;
+  line-height: 1.6;
+}

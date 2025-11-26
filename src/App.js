@@ -18,6 +18,9 @@ import PerfilOrganizacion from "./pages/PerfilOrganizacion";
 import PerfilVoluntario from "./pages/PerfilVoluntario";
 import AdminMedallaCondiciones from "./pages/AdminMedallaCondiciones";
 import ComentariosOrganizacion from "./pages/ComentariosOrganizacion";
+import Oportunidades from "./pages/Oportunidades";
+import Nosotros from "./pages/Nosotros";
+import Terminos from "./pages/Terminos";
 
 import VerConvocatoria from "./pages/VerConvocatoria";
 
@@ -39,6 +42,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/voluntario" element={<DashboardVoluntario />} />
             <Route path="/perfil" element={<PerfilVoluntario />} />
+            <Route path="/oportunidades" element={<Oportunidades />} />
             <Route
               path="/register/voluntario"
               element={<RegisterVoluntario />}
@@ -84,6 +88,8 @@ function App() {
               path="/admin/medallas/:id/condiciones"
               element={<AdminMedallaCondiciones />}
             />
+            <Route path="/nosotros" element={<Nosotros />} />
+            <Route path="/terminos" element={<Terminos />} />
           </Routes>
         </main>
 

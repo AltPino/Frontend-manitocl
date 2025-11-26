@@ -235,9 +235,10 @@
 }
 
 /* ============================================================
-   GRID DE MEDALLAS
+   MEDALLAS — SOLO PERFIL DEL VOLUNTARIO
 =============================================================== */
-.medallas-grid {
+
+.vol-medallas .medallas-grid {
   display: flex;
   justify-content: center;
   gap: 35px;
@@ -245,10 +246,7 @@
   margin-top: 20px;
 }
 
-/* ============================================================
-   MEDALLA — círculo contenedor
-=============================================================== */
-.medalla-item {
+.vol-medallas .medalla-item {
   position: relative;
   width: 120px;
   height: 120px;
@@ -260,11 +258,10 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   cursor: pointer;
   transition: transform 0.25s ease;
-  animation: medallaGlow 2.5s infinite ease-in-out;
+  animation: volMedallaGlow 2.5s infinite ease-in-out;
 }
 
-/* Centro perfecto del icono */
-.medalla-icono {
+.vol-medallas .medalla-icono {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -272,15 +269,13 @@
   transition: 0.3s ease;
 }
 
-/* Hover — icono baja opacidad */
-.medalla-item:hover .medalla-icono {
+.vol-medallas .medalla-item:hover .medalla-icono {
   opacity: 0.25;
 }
 
-/* ============================================================
-   TOOLTIP — información de la medalla
-=============================================================== */
-.medalla-tooltip {
+/* ================= TOOLTIP ================= */
+
+.vol-medallas .medalla-tooltip {
   position: absolute;
   bottom: -5px;
   left: 50%;
@@ -298,23 +293,31 @@
   z-index: 10;
 }
 
-.medalla-item:hover .medalla-tooltip {
+.vol-medallas .medalla-item:hover .medalla-tooltip {
   opacity: 1;
   transform: translate(-50%, 120%);
 }
 
-.medalla-tooltip h4 {
+.vol-medallas .medalla-tooltip h4 {
   margin: 0;
   font-size: 15px;
   font-weight: bold;
   color: #222;
 }
 
-.medalla-tooltip p {
+.vol-medallas .medalla-tooltip p {
   font-size: 12px;
   margin-top: 5px;
   line-height: 1.3;
   color: #555;
+}
+
+/* ================= ANIMACIÓN SOLO PERFIL ================= */
+
+@keyframes volMedallaGlow {
+  0%   { box-shadow: 0 0 8px rgba(80,140,255,0.3); }
+  50%  { box-shadow: 0 0 18px rgba(80,140,255,0.6); }
+  100% { box-shadow: 0 0 8px rgba(80,140,255,0.3); }
 }
 
 
