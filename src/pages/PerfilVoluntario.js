@@ -17,6 +17,7 @@ export default function PerfilVoluntario() {
 
   const [regiones, setRegiones] = useState([]);
   const [comunas, setComunas] = useState([]);
+  const [medallas, setMedallas] = useState([]);
 
   const [form, setForm] = useState({
     nombre_completo: "",
@@ -66,6 +67,10 @@ export default function PerfilVoluntario() {
         const res = await api.get(`/perfil/voluntario/${usuario.id}`);
         setPerfil(res.data);
         setForm(res.data);
+
+        // 2️⃣ Cargar medallas del voluntario
+        const resMed = await api.get(`/medallas/voluntario/${usuario.id}`);
+        setMedallas(resMed.data);
 
         await cargarRegiones();
         await cargarComunas(res.data.region);
@@ -267,6 +272,27 @@ export default function PerfilVoluntario() {
               Cancelar
             </button>
           </>
+        )}
+      </div>
+
+      <div className="vol-prof-card">
+        <h2>Mis Medallas</h2>
+
+        {medallas.length === 0 ? (
+          <p>Aún no has obtenido medallas.</p>
+        ) : (
+          <div className="medallas-grid">
+            {medallas.map((m) => (
+              <div key={m.id_medalla} className="medalla-item">
+                <img src={m.icono} className="medalla-icono" alt={m.nombre} />
+
+                <div className="medalla-tooltip">
+                  <h4>{m.nombre}</h4>
+                  <p>{m.descripcion}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         )}
       </div>
 

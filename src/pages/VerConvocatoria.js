@@ -63,11 +63,26 @@ export default function VerConvocatoria() {
   // 🔥 función para finalizar convocatoria (solo agregada)
   const finalizarConvocatoria = async () => {
     try {
-      await api.put(`/convocatorias/finalizar/${convocatoria.id_convocatoria}`);
-      alert("Convocatoria finalizada correctamente");
+      const idConv = convocatoria.id_convocatoria;
+
+      // 1️⃣ Finalizar convocatoria
+      await api.put(`/convocatorias/finalizar/${idConv}`);
+
+      // 2️⃣ Obtener todas las postulaciones de esta convocatoria
+      const res = await api.get(`/postulaciones/convocatoria/${idConv}`);
+      const listado = res.data;
+
+      // 3️⃣ Finalizar cada postulación -> aquí se asignan medallas automáticamente
+      for (let p of listado) {
+        await api.put(`/postulaciones/${p.id_postulacion}`, {
+          estado: "finalizado",
+        });
+      }
+
+      alert("Convocatoria finalizada y medallas evaluadas correctamente");
       window.location.reload();
     } catch (error) {
-      console.error("Error al finalizar:", error);
+      console.error("Error finalizando convocatoria:", error);
       alert("Error al finalizar la convocatoria");
     }
   };
