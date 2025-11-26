@@ -45,10 +45,11 @@ export default function Navbar() {
   // ============================
   const NavbarOrganizacion = () => (
     <div className="navbar-links">
-      <Link to="/organizacion">Inicio</Link>
-      <Link to="/organizacion/perfil">Perfil</Link>
+      <Link to="/">Inicio</Link>
+      <Link to="/organizacion">Dashboard</Link>
       <Link to="/organizacion/convocatorias">Convocatorias</Link>
       <Link to="/organizacion/postulaciones">Postulaciones</Link>
+      <Link to="/organizacion/perfil">Perfil</Link>
     </div>
   );
 

@@ -11,6 +11,7 @@ const Home = () => {
   const [intereses, setIntereses] = useState([]);
   const [regiones, setRegiones] = useState([]);
   const [comunas, setComunas] = useState([]);
+  const [comentarios, setComentarios] = useState([]);
   const navigate = useNavigate();
 
   const [filtroInteres, setFiltroInteres] = useState("");
@@ -53,6 +54,20 @@ const Home = () => {
     cargar();
   }, [filtroInteres, filtroRegion, filtroComuna]);
 
+  // === 5. Comentarios ===
+  useEffect(() => {
+    const cargarComentarios = async () => {
+      try {
+        const res = await api.get("/comentarios/home");
+        setComentarios(res.data);
+      } catch (err) {
+        console.error("Error cargando comentarios:", err);
+      }
+    };
+
+    cargarComentarios();
+  }, []);
+
   useEffect(() => {
     cargarIntereses();
     cargarRegiones();
@@ -61,6 +76,30 @@ const Home = () => {
   useEffect(() => {
     cargarComunas(regionId);
   }, [regionId]);
+
+  // Carrusel automático
+  useEffect(() => {
+    let index = 0;
+    const slides = document.getElementsByClassName("comentario-slide");
+
+    if (slides.length === 0) return;
+
+    const showSlides = () => {
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+
+      index++;
+      if (index > slides.length) index = 1;
+
+      slides[index - 1].style.display = "block";
+    };
+
+    showSlides();
+    const interval = setInterval(showSlides, 5000); // cambio cada 5s
+
+    return () => clearInterval(interval);
+  }, [comentarios]);
 
   return (
     <div className="home-wrapper">
@@ -143,7 +182,8 @@ const Home = () => {
             <p className="no-results">No hay convocatorias disponibles.</p>
           )}
 
-          {convocatorias.map((c) => (
+          {/* Solo las primeras 6 convocatorias */}
+          {convocatorias.slice(0, 6).map((c) => (
             <div className="card" key={c.id_convocatoria}>
               <img
                 src={
@@ -181,6 +221,68 @@ const Home = () => {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+      {/* ============= COMENTARIOS DE ORGANIZACIONES ============= */}
+      <section className="comentarios-section">
+        <h2>Lo que dicen las organizaciones</h2>
+        <p className="comentarios-subtitle">
+          ONGs y fundaciones que han trabajado con voluntarios de Manito.cl
+        </p>
+
+        <div className="comentarios-carousel">
+          {comentarios.length === 0 ? (
+            <p className="no-results">Aún no hay comentarios disponibles.</p>
+          ) : (
+            comentarios.map((c, index) => (
+              <div key={c.id_comentario} className="comentario-slide fade">
+                <div className="comentario-card">
+                  <h3>{c.nombre_organizacion}</h3>
+
+                  {c.rating && (
+                    <span className="comentario-rating">
+                      {"★".repeat(c.rating)}
+                      {"☆".repeat(5 - c.rating)}
+                    </span>
+                  )}
+
+                  <h4 className="comentario-title">{c.titulo}</h4>
+                  <p className="comentario-text">“{c.comentario}”</p>
+
+                  {c.autor && <p className="comentario-autor">— {c.autor}</p>}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+        {usuario?.tipo === "organizacion" && (
+          <button
+            className="btn-comentario-org"
+            onClick={() => navigate("/organizacion/comentarios")}
+          >
+            Dejar un comentario
+          </button>
+        )}
+      </section>
+
+      {/* ============= SECCIÓN DE DONACIONES ============= */}
+      <h2 className="donaciones-title">¿Quieres apoyar nuestra misión?</h2>
+      <section className="donaciones-section">
+        <div className="donaciones-card">
+          <h2>Apoya a Manito.cl</h2>
+          <p>
+            Tu aporte nos ayuda a mantener la plataforma, llegar a más
+            organizaciones y conectar a más voluntarios con causas que lo
+            necesitan.
+          </p>
+          <a
+            href="https://www.paypal.com/donate"
+            target="_blank"
+            rel="noreferrer"
+            className="donar-btn"
+          >
+            Donar con PayPal
+          </a>
         </div>
       </section>
     </div>

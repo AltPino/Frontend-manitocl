@@ -234,3 +234,228 @@
     font-size: 1.4rem;
   }
 }
+
+/* =========================================
+   COMENTARIOS DE ORGANIZACIONES
+========================================= */
+
+.comentarios-section {
+  margin-top: 60px;
+}
+
+.comentarios-section h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.comentarios-subtitle {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-top: 4px;
+  margin-bottom: 22px;
+}
+
+.comentarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.comentario-card {
+  background: white;
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  border-left: 4px solid #0f766e;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comentario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comentario-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.comentario-rating {
+  font-size: 0.9rem;
+  color: #fbbf24; /* amarillo */
+}
+
+.comentario-title {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.comentario-text {
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.comentario-autor {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* =========================================
+   SECCIÓN DE DONACIONES
+========================================= */
+
+.donaciones-section {
+  margin-top: 60px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.donaciones-card {
+  max-width: 700px;
+  width: 100%;
+  background: linear-gradient(135deg, #0f766e, #14b8a6);
+  color: white;
+  border-radius: 18px;
+  padding: 28px 26px 30px 26px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+  text-align: center;
+}
+
+.donaciones-card h2 {
+  font-size: 1.9rem;
+  margin-bottom: 10px;
+}
+
+.donaciones-card p {
+  font-size: 0.98rem;
+  margin-bottom: 12px;
+}
+
+.donaciones-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 18px 0;
+  font-size: 0.9rem;
+}
+
+.donaciones-card li::before {
+  content: "• ";
+  font-weight: bold;
+}
+
+.donar-btn {
+  display: inline-block;
+  padding: 12px 26px;
+  background: #fbbf24;
+  color: #1f2937;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.98rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: 0.25s ease;
+}
+
+.donar-btn:hover {
+  background: #f59e0b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+
+.btn-comentario-org {
+  display: block;
+  margin: 20px auto;
+  background: linear-gradient(135deg, #4f8cff, #6ad0ff);
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  transition: 0.3s ease;
+}
+
+.btn-comentario-org:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* ============================================
+   CARRUSEL DE COMENTARIOS
+============================================ */
+
+.comentarios-carousel {
+  position: relative;
+  max-width: 700px;
+  margin: 40px auto;
+  height: 260px; /* fija para evitar saltos */
+}
+
+.comentario-slide {
+  display: none;
+  width: 100%;
+  animation: fadeIn 1s ease;
+}
+
+.comentario-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.12);
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.comentario-card h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: #0b5ed7;
+}
+
+.comentario-rating {
+  color: #ffb300;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.comentario-title {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.comentario-text {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #444;
+  font-style: italic;
+}
+
+.comentario-autor {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

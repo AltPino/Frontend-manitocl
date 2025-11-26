@@ -17,6 +17,7 @@ import PostulacionesOrganizacion from "./pages/PostulacionesOrganizacion";
 import PerfilOrganizacion from "./pages/PerfilOrganizacion";
 import PerfilVoluntario from "./pages/PerfilVoluntario";
 import AdminMedallaCondiciones from "./pages/AdminMedallaCondiciones";
+import ComentariosOrganizacion from "./pages/ComentariosOrganizacion";
 
 import VerConvocatoria from "./pages/VerConvocatoria";
 
@@ -71,6 +72,10 @@ function App() {
             <Route
               path="/organizacion/perfil"
               element={<PerfilOrganizacion />}
+            />
+            <Route
+              path="/organizacion/comentarios"
+              element={<ComentariosOrganizacion />}
             />
             <Route path="/convocatoria/:id" element={<VerConvocatoria />} />
 
