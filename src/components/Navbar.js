@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate, useLocation, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "./Navbar.css";
 
@@ -7,55 +7,84 @@ export default function Navbar() {
   const { usuario, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // 🚫 OCULTAR NAVBAR EN TODAS LAS RUTAS /admin
-  if (location.pathname.startsWith("/admin")) {
-    return null;
-  }
+  if (location.pathname.startsWith("/admin")) return null;
 
   const handleLogout = () => {
     logout();
     navigate("/");
+    setMenuOpen(false);
   };
 
-  // ============================
-  // NAVBAR INVITADO
-  // ============================
   const NavbarInvitado = () => (
     <div className="navbar-links">
-      <Link to="/">Inicio</Link>
-      <Link to="/oportunidades">Oportunidades</Link>
-      <Link to="/nosotros">Nosotros</Link>
+      <NavLink
+        to="/"
+        onClick={() => setMenuOpen(false)}
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
+      >
+        Inicio
+      </NavLink>
+
+      <NavLink
+        to="/oportunidades"
+        onClick={() => setMenuOpen(false)}
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
+      >
+        Oportunidades
+      </NavLink>
+
+      <NavLink
+        to="/nosotros"
+        onClick={() => setMenuOpen(false)}
+        className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }
+      >
+        Nosotros
+      </NavLink>
     </div>
   );
 
-  // ============================
-  // NAVBAR VOLUNTARIO
-  // ============================
   const NavbarVoluntario = () => (
-    <div className="navbar-links">
-      <Link to="/">Inicio</Link>
-      <Link to="/oportunidades">Oportunidades</Link>
-      <Link to="/perfil">Mi Perfil</Link>
-    </div>
+    <>
+      <Link to="/" onClick={() => setMenuOpen(false)}>
+        Inicio
+      </Link>
+      <Link to="/oportunidades" onClick={() => setMenuOpen(false)}>
+        Oportunidades
+      </Link>
+      <Link to="/perfil" onClick={() => setMenuOpen(false)}>
+        Mi Perfil
+      </Link>
+    </>
   );
 
-  // ============================
-  // NAVBAR ORGANIZACIÓN
-  // ============================
   const NavbarOrganizacion = () => (
-    <div className="navbar-links">
-      <Link to="/">Inicio</Link>
-      <Link to="/organizacion">Dashboard</Link>
-      <Link to="/organizacion/convocatorias">Convocatorias</Link>
-      <Link to="/organizacion/postulaciones">Postulaciones</Link>
-      <Link to="/organizacion/perfil">Perfil</Link>
-    </div>
+    <>
+      <Link to="/" onClick={() => setMenuOpen(false)}>
+        Inicio
+      </Link>
+      <Link to="/organizacion" onClick={() => setMenuOpen(false)}>
+        Dashboard
+      </Link>
+      <Link to="/organizacion/convocatorias" onClick={() => setMenuOpen(false)}>
+        Convocatorias
+      </Link>
+      <Link to="/organizacion/postulaciones" onClick={() => setMenuOpen(false)}>
+        Postulaciones
+      </Link>
+      <Link to="/organizacion/perfil" onClick={() => setMenuOpen(false)}>
+        Perfil
+      </Link>
+    </>
   );
 
-  // ============================
-  // SELECCIONAR NAV
-  // ============================
   const renderLinks = () => {
     if (!usuario) return <NavbarInvitado />;
     if (usuario.tipo === "organizacion") return <NavbarOrganizacion />;
@@ -66,35 +95,50 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* LOGO */}
-        <Link to="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo" onClick={() => setMenuOpen(false)}>
           Manito.<span>cl</span>
         </Link>
 
-        {/* LINKS */}
-        {renderLinks()}
+        {/* BOTÓN HAMBURGUESA */}
+        <button
+          className="navbar-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
 
-        {/* DERECHA */}
-        <div className="navbar-actions">
-          {!usuario && (
-            <>
-              <Link to="/login" className="btn-outline">
-                Iniciar Sesión
-              </Link>
-              <Link to="/register" className="btn-primary">
-                Registrarse
-              </Link>
-            </>
-          )}
+        {/* MENÚ */}
+        <div className={`navbar-menu ${menuOpen ? "active" : ""}`}>
+          <div className="navbar-links">{renderLinks()}</div>
 
-          {usuario && (
-            <>
-              <span className="navbar-user">{usuario.nombre}</span>
-              <button className="btn-logout" onClick={handleLogout}>
-                Cerrar Sesión
-              </button>
-            </>
-          )}
+          <div className="navbar-actions">
+            {!usuario ? (
+              <>
+                <Link
+                  to="/login"
+                  className="btn-outline"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Iniciar Sesión
+                </Link>
+
+                <Link
+                  to="/register"
+                  className="btn-primary"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Registrarse
+                </Link>
+              </>
+            ) : (
+              <>
+                <span className="navbar-user">{usuario.nombre}</span>
+                <button className="btn-logout" onClick={handleLogout}>
+                  Cerrar Sesión
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </nav>

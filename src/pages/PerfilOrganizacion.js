@@ -246,19 +246,17 @@ export default function PerfilOrganizacion() {
       <div className="org-prof-bottom">
         <div className="org-prof-card">
           <h3>Métricas generales</h3>
-          <p>Aquí podrás ver estadísticas más adelante.</p>
-        </div>
-
-        <div className="org-prof-card">
-          <h3>Notas internas</h3>
-          <p>Espacio para recordatorios o avisos importantes.</p>
+          <p>
+            Pronto podrás ver estadísticas sobre tus convocatorias, voluntarios
+            activos y postulaciones recibidas.
+          </p>
         </div>
 
         <div className="org-prof-card">
           <h3>Próximas mejoras</h3>
           <p>
-            Calendario, estadísticas, logros y más herramientas para tu
-            organización.
+            En futuras versiones podrás acceder a análisis avanzados, reportes
+            inteligentes y herramientas adicionales para tu institución.
           </p>
         </div>
       </div>

@@ -123,9 +123,10 @@
   cursor: pointer;
 }
 
-.btn-primary:hover {
-  background: #084bb0;
+.vol-prof-actions .btn-primary:hover {
+  background-color: #0b5ed7;
 }
+
 
 .btn-danger {
   background: #d32f2f;

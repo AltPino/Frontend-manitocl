@@ -1,11 +1,11 @@
 /* =============================
-      NAVBAR - ESTILO B
-   ============================= */
+        NAVBAR GENERAL
+============================= */
 
 .navbar {
   width: 100%;
-  background: var(--color-bg-soft);
-  padding: 14px 0;
+  background: #ffffff;
+  padding: 12px 0;
   box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
@@ -15,7 +15,7 @@
 .navbar-container {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
 
   display: flex;
   align-items: center;
@@ -24,92 +24,200 @@
 
 /* LOGO */
 .navbar-logo {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 800;
   text-decoration: none;
-  color: var(--color-primary);
+  color: #0a7c5b;
 }
 
 .navbar-logo span {
-  color: var(--color-text);
+  color: #333;
 }
 
-/* LINKS CENTRALES */
+/* BOTÓN HAMBURGUESA */
+.navbar-toggle {
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+
+/* CONTENEDOR MENÚ (links + botones) */
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+/* LINKS */
 .navbar-links {
   display: flex;
-  gap: 28px;
+  gap: 22px;
 }
 
 .navbar-links a {
   text-decoration: none;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 500;
-  color: var(--color-text-soft);
-  transition: var(--transition);
+  color: #555;
 }
 
 .navbar-links a:hover {
-  color: var(--color-primary);
+  color: #0a7c5b;
 }
 
-/* ACCIONES DERECHA */
+/* ACCIONES */
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
-/* USERNAME */
 .navbar-user {
   font-weight: 600;
-  color: var(--color-primary);
-  margin-right: 4px;
+  color: #0a7c5b;
 }
 
-/* BOTÓN OUTLINE */
+/* BOTONES */
 .btn-outline {
-  padding: 8px 18px;
-  border: 2px solid var(--color-primary);
-  border-radius: var(--radius-md);
-  color: var(--color-primary);
+  padding: 8px 16px;
+  border: 2px solid #0a7c5b;
+  border-radius: 8px;
+  color: #0a7c5b;
   background: transparent;
-  text-decoration: none;
   font-weight: 600;
-  transition: var(--transition);
+  text-decoration: none;
+  font-size: 14px;
 }
 
-.btn-outline:hover {
-  background: var(--color-primary-light);
-  color: white;
-}
-
-/* BOTÓN PRINCIPAL */
 .btn-primary {
-  padding: 8px 18px;
-  border-radius: var(--radius-md);
-  background: var(--color-primary);
+  padding: 8px 16px;
+  background: #0a7c5b;
   color: white;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  transition: var(--transition);
+  font-size: 14px;
 }
 
-.btn-primary:hover {
-  background: var(--color-primary-light);
-}
-
-/* BOTÓN LOGOUT */
 .btn-logout {
   padding: 8px 16px;
-  border-radius: var(--radius-md);
-  border: none;
-  background: var(--color-danger);
+  background: #d32f2f;
   color: white;
+  border-radius: 8px;
+  border: none;
   font-weight: 600;
   cursor: pointer;
-  transition: var(--transition);
+  font-size: 14px;
 }
 
-.btn-logout:hover {
-  background: var(--color-danger-dark);
+/* =============================
+        MOBILE
+============================= */
+@media (max-width: 900px) {
+  .navbar-toggle {
+    display: block;
+  }
+
+  /* El menú completo se vuelve un dropdown */
+  .navbar-menu {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    z-index: 1200;
+    min-width: 220px;
+  }
+
+  .navbar-menu.active {
+    display: flex;
+  }
+
+  .navbar-links,
+  .navbar-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .navbar-container {
+    position: relative;
+  }
+
+  @media (max-width: 900px) {
+  .navbar-links,
+  .navbar-actions {
+    align-items: center;
+    width: 100%;
+  }
+
+  .navbar-links a,
+  .navbar-actions a,
+  .navbar-actions button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+}
+
+/* =============================
+   CENTRAR LINKS EN DESKTOP
+============================= */
+.navbar-menu {
+  justify-content: center;
+  flex: 1;
+}
+
+.navbar-links {
+  justify-content: center;
+  flex: 1;
+}
+
+/* =============================
+   ESTADO ACTIVO DEL NAVBAR
+============================= */
+.nav-link {
+  position: relative;
+  padding: 8px 14px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #0b7a5a;
+}
+
+/* 🔥 PESTAÑA ACTIVA */
+.nav-link.active {
+  color: #0b7a5a;
+  font-weight: 700;
+}
+
+/* Línea inferior animada */
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 3px;
+  background: #0b7a5a;
+  border-radius: 10px;
+}
+
+.navbar-actions .btn-primary:hover {
+  background-color: #0f6b4f;
+  border-color: #0f6b4f;
+  color: #fff;
 }
