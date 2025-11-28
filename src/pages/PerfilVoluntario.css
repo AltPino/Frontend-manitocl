@@ -322,3 +322,200 @@
 }
 
 
+/* =========================================================
+   RESPONSIVE PERFIL VOLUNTARIO
+========================================================= */
+
+/* Tablets hacia abajo */
+@media (max-width: 900px) {
+  .vol-prof-top {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .vol-prof-avatar-box {
+    align-items: center;
+  }
+
+  .vol-prof-avatar {
+    width: 150px;
+    height: 150px;
+  }
+
+  .vol-prof-main h1 {
+    font-size: 24px;
+  }
+
+  .vol-prof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vol-prof-actions {
+    justify-content: center;
+  }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+  .vol-prof-wrapper {
+    padding: 12px;
+  }
+
+  .vol-prof-top {
+    padding: 18px;
+  }
+
+  .vol-prof-avatar {
+    width: 120px;
+    height: 120px;
+    font-size: 50px;
+  }
+
+  .vol-prof-avatar-box button {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .vol-prof-main h1 {
+    font-size: 20px;
+  }
+
+  .vol-level {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
+
+  .vol-prof-grid label {
+    font-size: 13px;
+  }
+
+  .vol-prof-grid input,
+  .vol-prof-grid select {
+    font-size: 14px;
+  }
+
+  .vol-prof-card {
+    padding: 16px;
+  }
+
+  .medallas-grid {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .pv-post-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .pv-btn-ver {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Móviles muy pequeños */
+@media (max-width: 400px) {
+  .vol-prof-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .vol-prof-main h1 {
+    font-size: 18px;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    width: 100%;
+  }
+}
+ 
+/* =========================================================
+   POSTULACIONES RESPONSIVE → TABLA A CARDS EN MÓVIL
+========================================================= */
+
+@media (max-width: 700px) {
+  .vol-prof-card table,
+  .vol-prof-card thead,
+  .vol-prof-card tbody,
+  .vol-prof-card th,
+  .vol-prof-card td,
+  .vol-prof-card tr {
+    display: block;
+    width: 100%;
+  }
+
+  .vol-prof-card thead {
+    display: none;
+  }
+
+  .vol-prof-card tr {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .vol-prof-card td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border: none;
+    font-size: 14px;
+  }
+
+  .vol-prof-card td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+
+  .pv-btn-ver {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+
+/* ==============================
+   BOTONES PERFIL VOLUNTARIO
+============================== */
+
+.vol-prof-avatar-box .btn-secondary {
+  background: #0f766e;       /* Verde Manito */
+  color: white;
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 16px;
+  transition: 0.25s ease;
+}
+
+.vol-prof-avatar-box .btn-secondary:hover {
+  background: #0d5f58;       /* Verde más oscuro */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Botón Guardar cambios */
+.vol-prof-actions .btn-primary {
+  background: #2563eb;       /* Azul fuerte */
+  border-radius: 10px;
+}
+
+.vol-prof-actions .btn-primary:hover {
+  background: #1e4fd8;
+}
+
+/* Botón Cancelar */
+.vol-prof-actions .btn-danger {
+  background: #dc2626;       /* Rojo elegante */
+  border-radius: 10px;
+}
+
+.vol-prof-actions .btn-danger:hover {
+  background: #b91c1c;
+}
